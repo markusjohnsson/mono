@@ -38,6 +38,12 @@ namespace System {
 			return i - p;
 		}
 
+#if JSIL
+        public static void ZeroPad(StringBuilder output, int digits, int len)
+        {
+            throw new NotImplementedException();
+        }
+#else
 		public static unsafe void ZeroPad (StringBuilder output, int digits, int len)
 		{
 			// more than enough for an int
@@ -55,6 +61,7 @@ namespace System {
 			
 			output.Append (new string (buffer, pos, 16 - pos));
 		}
+#endif
 
 		public static int ParseQuotedString (string fmt, int pos, StringBuilder output)
 		{

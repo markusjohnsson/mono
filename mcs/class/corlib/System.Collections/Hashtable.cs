@@ -86,7 +86,9 @@ namespace System.Collections {
 		private HashValues hashValues;
 		private IHashCodeProvider hcpRef;
 		private IComparer comparerRef;
+#if !JSIL
 		private SerializationInfo serializationInfo;
+#endif
 		private IEqualityComparer equalityComparer;
 
 		private int inUse;
@@ -235,10 +237,12 @@ namespace System.Collections {
 		{
 		}
 
+#if !JSIL
 		protected Hashtable (SerializationInfo info, StreamingContext context)
 		{
 			serializationInfo = info;
 		}
+#endif
 
 		public Hashtable (IDictionary d, IEqualityComparer equalityComparer) : this (d, 1.0f, equalityComparer)
 		{
@@ -515,6 +519,7 @@ namespace System.Collections {
 			return new Hashtable (this);
 		}
 
+#if !JSIL
 		public virtual void GetObjectData (SerializationInfo info, StreamingContext context)
 		{
 			if (info == null)
@@ -579,6 +584,7 @@ namespace System.Collections {
 			
 			serializationInfo = null;
 		}
+#endif
 
 		/// <summary>
 		///  Returns a synchronized (thread-safe)
@@ -1084,6 +1090,7 @@ namespace System.Collections {
 				this.host = host;
 			}
 
+#if !JSIL
 			internal SyncHashtable (SerializationInfo info, StreamingContext context)
 			{
 				host = (Hashtable) info.GetValue("ParentTable", typeof(Hashtable));
@@ -1093,6 +1100,7 @@ namespace System.Collections {
 			{
 				info.AddValue ("ParentTable", host);
 			}
+#endif
 			
 			// ICollection
 

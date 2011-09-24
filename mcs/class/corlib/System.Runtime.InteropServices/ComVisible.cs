@@ -40,8 +40,12 @@ namespace System.Runtime.InteropServices {
 		AttributeTargets.Field | AttributeTargets.Interface |
 		AttributeTargets.Delegate, Inherited=false)]
 	[ComVisible (true)]
-	public sealed class ComVisibleAttribute : Attribute {
 
+#if JSIL
+    internal sealed class ComVisibleAttribute : Attribute {
+#else
+    	public sealed class ComVisibleAttribute : Attribute {
+#endif
 		private bool Visible = false;
 
 		public ComVisibleAttribute (bool visibility)

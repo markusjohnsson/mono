@@ -32,6 +32,10 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
+#if JSIL
+#define NO_UNSAFE
+#endif
+
 using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
@@ -239,6 +243,9 @@ namespace System.Collections.Generic {
 		
 		private List <T> FindAllStackBits (Predicate <T> match)
 		{
+#if NO_UNSAFE
+            throw new NotImplementedException();
+#else
 			unsafe
 			{
 				uint *bits = stackalloc uint [(this._size / 32) + 1];
@@ -281,6 +288,7 @@ namespace System.Collections.Generic {
 				
 				return new List <T> (results, found);
 			}
+#endif
 		}
 		
 		private List <T> FindAllList (Predicate <T> match)

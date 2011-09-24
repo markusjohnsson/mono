@@ -54,10 +54,12 @@ namespace System
 			HResult = Result;
 		}
 
+#if !JSIL
 		protected SystemException (SerializationInfo info, StreamingContext context)
 			: base (info, context)
 		{
 		}
+#endif
 
 		public SystemException (string message, Exception innerException)
 			: base (message, innerException)

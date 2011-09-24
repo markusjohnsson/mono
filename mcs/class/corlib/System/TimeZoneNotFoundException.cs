@@ -33,7 +33,7 @@ namespace System
 	[Serializable]
 #if NET_4_0
 	[TypeForwardedFrom (Consts.AssemblySystemCore_3_5)]
-#elif MOONLIGHT || MOBILE
+#elif (MOONLIGHT || MOBILE) && !JSIL
 	[TypeForwardedFrom (Consts.AssemblySystem_Core)]
 #endif
 	public class TimeZoneNotFoundException : Exception
@@ -47,8 +47,10 @@ namespace System
 		public TimeZoneNotFoundException (string message, Exception innerException) : base (message, innerException)
 		{}
 
+#if !JSIL
 		protected TimeZoneNotFoundException (Runtime.Serialization.SerializationInfo info, Runtime.Serialization.StreamingContext context) : base (info, context)
 		{}
+#endif
 	}
 }
 

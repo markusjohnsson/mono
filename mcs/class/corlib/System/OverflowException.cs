@@ -62,9 +62,11 @@ namespace System
 			HResult = Result;
 		}
 
+#if !JSIL
 		protected OverflowException (SerializationInfo info, StreamingContext context)
 			: base (info, context)
 		{
 		}
+#endif
 	}
 }

@@ -353,10 +353,12 @@ namespace System
 			return utcOffsetWithOutDLS;
 		}
 
+#if !JSIL
 		void IDeserializationCallback.OnDeserialization (object sender)
 		{
 			OnDeserialization (null);
 		}
+#endif
 
 		private void OnDeserialization (DaylightTime dlt)
 		{

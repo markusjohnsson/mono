@@ -55,9 +55,11 @@ namespace System
 		{
 		}
 		
+#if !JSIL
 		internal IndexOutOfRangeException (SerializationInfo info, StreamingContext context)
 			: base (info, context)
 		{
 		}
+#endif
 	}
 }

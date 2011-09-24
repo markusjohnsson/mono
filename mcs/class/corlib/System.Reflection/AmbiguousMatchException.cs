@@ -55,9 +55,11 @@ namespace System.Reflection {
 		{
 		}
 		
+#if !JSIL
 		internal AmbiguousMatchException (SerializationInfo info, StreamingContext context)
 			: base (info, context)
 		{
 		}
+#endif
 	}
 }

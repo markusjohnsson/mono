@@ -43,7 +43,9 @@ namespace System.Collections.Generic {
 		public KeyNotFoundException (string message, Exception innerException)
 			: base (message, innerException) {}
 
+#if !JSIL
 		protected KeyNotFoundException (SerializationInfo info, StreamingContext context)
 			: base (info, context) {}
+#endif
 	}
 }
