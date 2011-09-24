@@ -68,9 +68,11 @@ namespace System
 			HResult = errorCode;
 		}
 
+#if !JSIL
 		protected InvalidCastException (SerializationInfo info, StreamingContext context)
 			: base (info, context)
 		{
 		}
+#endif
 	}
 }

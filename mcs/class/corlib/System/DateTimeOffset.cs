@@ -27,7 +27,6 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
@@ -102,10 +101,12 @@ namespace System
 		{
 		}
 
+#if !JSIL
 		public DateTimeOffset (int year, int month, int day, int hour, int minute, int second, int millisecond, Calendar calendar, TimeSpan offset) :
 			this (new DateTime (year, month, day, hour, minute, second, millisecond, calendar), offset)
 		{
 		}
+#endif
 
 		public DateTimeOffset Add (TimeSpan timeSpan)
 		{
@@ -213,6 +214,7 @@ namespace System
 			return dt.GetHashCode () ^ utc_offset.GetHashCode ();
 		}
 
+#if !JSIL
 		[System.Security.Permissions.SecurityPermission (System.Security.Permissions.SecurityAction.LinkDemand, SerializationFormatter = true)]
 		void ISerializable.GetObjectData (SerializationInfo info, StreamingContext context)
 		{
@@ -242,6 +244,7 @@ namespace System
 			utc_offset = TimeSpan.FromMinutes(totalMinutes);
 			dt = dt0.Add(utc_offset);
 		}
+#endif
 
 		public static bool operator > (DateTimeOffset left, DateTimeOffset right)
 		{
@@ -273,6 +276,7 @@ namespace System
 			return left.UtcDateTime <= right.UtcDateTime;
 		}
 	
+#if !JSIL
 		[MonoTODO]
 		void IDeserializationCallback.OnDeserialization (object sender)
 		{
@@ -282,7 +286,6 @@ namespace System
 		{
 			return Parse (input, null);
 		}
-
 		public static DateTimeOffset Parse (string input, IFormatProvider formatProvider)
 		{
 			return Parse (input, formatProvider, DateTimeStyles.AllowWhiteSpaces);
@@ -620,6 +623,7 @@ namespace System
 
 			return false;
 		}
+#endif
 
 		private static int ParseNumber (string input, int pos, int digits, bool leading_zero, bool allow_leading_white, out int result)
 		{
@@ -758,6 +762,7 @@ namespace System
 			return new DateTimeOffset (UtcDateTime, TimeSpan.Zero);	
 		}
 
+#if !JSIL
 		public static bool TryParse (string input, out DateTimeOffset result)
 		{
 			try {
@@ -801,6 +806,7 @@ namespace System
 				return false;
 			}
 		}
+#endif
 
 		public DateTime Date {
 			get { return DateTime.SpecifyKind (dt.Date, DateTimeKind.Unspecified); }

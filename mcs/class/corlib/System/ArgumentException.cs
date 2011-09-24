@@ -77,11 +77,13 @@ namespace System
 			HResult = Result;
 		}
 
+#if !JSIL
 		protected ArgumentException (SerializationInfo info, StreamingContext context)
 			: base (info, context)
 		{
 			param_name = info.GetString ("ParamName");
 		}
+#endif
 
 		// Properties
 		public virtual string ParamName {
@@ -100,10 +102,12 @@ namespace System
 			}
 		}
 
+#if !JSIL
 		public override void GetObjectData (SerializationInfo info, StreamingContext context)
 		{
 			base.GetObjectData (info, context);
 			info.AddValue ("ParamName", ParamName);
 		}
+#endif
 	}
 }

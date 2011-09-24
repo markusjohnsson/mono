@@ -62,9 +62,11 @@ namespace System
 			HResult = Result;
 		}
 
+#if !JSIL
 		protected NotImplementedException (SerializationInfo info, StreamingContext context)
 			: base (info, context)
 		{
 		}
+#endif
 	}
 }

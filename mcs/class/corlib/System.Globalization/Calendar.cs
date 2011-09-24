@@ -59,10 +59,7 @@ public abstract class Calendar : ICloneable
 	/// </returns>
 	internal string M_ValidValues(object a, object b)
 	{
-		StringWriter sw = new StringWriter();
-		sw.Write("Valid values are between {0} and {1}, inclusive.",
-			a, b);
-		return sw.ToString();
+        return String.Format("Valid values are between {0} and {1}, inclusive.", a, b);
 	}
 
 	/// <summary>
@@ -992,11 +989,8 @@ public abstract class Calendar : ICloneable
 		set {
 			CheckReadOnly ();
 			if (value.Length != Eras.Length) {
-				StringWriter sw = new StringWriter();
-				sw.Write("Array length must be equal Eras " +
-					"length {0}.", Eras.Length);
 				throw new ArgumentException(
-					sw.ToString());
+					String.Format("Array length must be equal Eras length {0}.", Eras.Length));
 			} 
 			M_AbbrEraNames = (string[])value.Clone();
 		}
@@ -1017,12 +1011,10 @@ public abstract class Calendar : ICloneable
 		}
 		set {
 			CheckReadOnly ();
-			if (value.Length != Eras.Length) {
-				StringWriter sw = new StringWriter();
-				sw.Write("Array length must be equal Eras " +
-					"length {0}.", Eras.Length);
-				throw new ArgumentException(
-					sw.ToString());
+            if (value.Length != Eras.Length)
+            {
+                throw new ArgumentException(
+                    String.Format("Array length must be equal Eras length {0}.", Eras.Length));
 			} 
 			M_EraNames = (string[])value.Clone();
 		}

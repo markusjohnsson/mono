@@ -100,7 +100,9 @@ namespace System.Collections.Generic {
 
 		//Leave those 2 fields here to improve heap layout.
 		IEqualityComparer<TKey> hcp;
+#if !JSIL
 		SerializationInfo serialization_info;
+#endif
 
 		// The number of slots in "linkSlots" and "keySlots"/"valueSlots" that
 		// are in use (i.e. filled with data) or have been used and marked as
@@ -252,10 +254,12 @@ namespace System.Collections.Generic {
 			Init (capacity, comparer);
 		}
 
+#if !JSIL
 		protected Dictionary (SerializationInfo info, StreamingContext context)
 		{
 			serialization_info = info;
 		}
+#endif
 
 		private void Init (int capacity, IEqualityComparer<TKey> hcp)
 		{
@@ -492,6 +496,7 @@ namespace System.Collections.Generic {
 			return false;
 		}
 
+#if !JSIL
 		[SecurityPermission (SecurityAction.LinkDemand, Flags=SecurityPermissionFlag.SerializationFormatter)]
 		public virtual void GetObjectData (SerializationInfo info, StreamingContext context)
 		{
@@ -556,6 +561,7 @@ namespace System.Collections.Generic {
 			generation++;
 			serialization_info = null;
 		}
+#endif
 
 		public bool Remove (TKey key)
 		{

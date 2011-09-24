@@ -301,9 +301,9 @@ namespace System {
 		public Guid (byte[] b)
 		{
 			CheckArray (b, 16);
-			_a = Mono.Security.BitConverterLE.ToInt32 (b, 0);
-			_b = Mono.Security.BitConverterLE.ToInt16 (b, 4);
-			_c = Mono.Security.BitConverterLE.ToInt16 (b, 6);
+			_a = JSIL.Security.BitConverterLE.ToInt32 (b, 0);
+            _b = JSIL.Security.BitConverterLE.ToInt16(b, 4);
+            _c = JSIL.Security.BitConverterLE.ToInt16(b, 6);
 			_d = b [8];
 			_e = b [9];
 			_f = b [10];
@@ -503,8 +503,12 @@ namespace System {
 				if (_rng != null)
 					_fastRng = _rng;
 				// else use hardcoded default RNG (bypassing CryptoConfig)
-				if (_fastRng == null)
+                if (_fastRng == null)
+#if JSIL
+                    _fastRng = RandomNumberGenerator.Create();
+#else
 					_fastRng = new RNGCryptoServiceProvider ();
+#endif
 				_fastRng.GetBytes (guid);
 			}
 
@@ -523,17 +527,17 @@ namespace System {
 			int d = 0;
 			int s;
 
-			tmp = Mono.Security.BitConverterLE.GetBytes(_a);
+			tmp = JSIL.Security.BitConverterLE.GetBytes(_a);
 			for (s=0; s<4; ++s) {
 				res[d++] = tmp[s];
 			}
 
-			tmp = Mono.Security.BitConverterLE.GetBytes(_b);
+            tmp = JSIL.Security.BitConverterLE.GetBytes(_b);
 			for (s=0; s<2; ++s) {
 				res[d++] = tmp[s];
 			}
 
-			tmp = Mono.Security.BitConverterLE.GetBytes(_c);
+            tmp = JSIL.Security.BitConverterLE.GetBytes(_c);
 			for (s=0; s<2; ++s) {
 				res[d++] = tmp[s];
 			}

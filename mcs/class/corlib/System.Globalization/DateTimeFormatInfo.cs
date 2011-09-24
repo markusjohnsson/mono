@@ -152,8 +152,10 @@ namespace System.Globalization
 			_UniversalSortableDateTimePattern = "yyyy'-'MM'-'dd HH':'mm':'ss'Z'";
 
 			firstDayOfWeek = (int)DayOfWeek.Sunday;
+#if !JSIL
 			calendar = new GregorianCalendar();
 			calendarWeekRule = (int)CalendarWeekRule.FirstDay;
+#endif
 
 			abbreviatedDayNames = INVARIANT_ABBREVIATED_DAY_NAMES;
 			dayNames = INVARIANT_DAY_NAMES;
@@ -224,6 +226,14 @@ namespace System.Globalization
 			if (eraName == null)
 				throw new ArgumentNullException ();
 			string [] eras = calendar.EraNames;
+
+#if JSIL
+            var idx = Array.IndexOf<string>(eras, eraName);
+            if (idx >= 0) return idx;
+            eras = calendar.AbbreviatedEraNames;
+            idx = Array.IndexOf<string>(eras, eraName);
+            if (idx >= 0) return idx;
+#else
 			for (int i = 0; i < eras.Length; i++)
 				if (CultureInfo.InvariantCulture.CompareInfo
 					.Compare (eraName, eras [i],
@@ -236,6 +246,7 @@ namespace System.Globalization
 					.Compare (eraName, eras [i],
 					CompareOptions.IgnoreCase) == 0)
 					return calendar.Eras [i];
+#endif
 			
 			return -1;
 		}
@@ -499,7 +510,11 @@ namespace System.Globalization
 		{
 			get
 			{
+#if !JSIL
 				return Thread.CurrentThread.CurrentCulture.DateTimeFormat;
+#else
+                return new DateTimeFormatInfo(true);
+#endif
 			}
 		}
 
@@ -530,7 +545,7 @@ namespace System.Globalization
 			}
 		}
 
-		public Calendar Calendar
+		internal Calendar Calendar
 		{
 			get
 			{
@@ -852,5 +867,5 @@ namespace System.Globalization
 				throw new ArgumentException ("format", "Format specifier is invalid");
 			}
 		}
-	}
+    }
 }

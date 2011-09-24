@@ -44,6 +44,7 @@ namespace System.Collections
 	sealed class Comparer : IComparer, ISerializable {
 
 		public static readonly Comparer Default = new Comparer ();
+#if !JSIL
 		public static readonly Comparer DefaultInvariant = new Comparer (CultureInfo.InvariantCulture);
 
 		// This field was introduced for MS kompatibility. see bug #77701
@@ -61,6 +62,7 @@ namespace System.Collections
 
 			m_compareInfo = culture.CompareInfo;
 		}
+#endif
 
 
 		// IComparer
@@ -73,12 +75,14 @@ namespace System.Collections
 			else if (b == null)
 				return 1;
 
+#if !JSIL
 			if (m_compareInfo != null) {
 				string sa = a as string;
 				string sb = b as string;
 				if (sa != null && sb != null)
 					return m_compareInfo.Compare (sa, sb);
 			}
+#endif
 
 			if (a is IComparable)
 				return (a as IComparable).CompareTo (b);
@@ -88,6 +92,7 @@ namespace System.Collections
 			throw new ArgumentException (Locale.GetText ("Neither 'a' nor 'b' implements IComparable."));
 		}
 
+#if !JSIL
 		// ISerializable
 		[SecurityPermission (SecurityAction.LinkDemand, SerializationFormatter = true)]
 		public void GetObjectData (SerializationInfo info, StreamingContext context)
@@ -97,5 +102,6 @@ namespace System.Collections
 
 			info.AddValue ("CompareInfo", m_compareInfo, typeof (CompareInfo));
 		}
+#endif
 	}
 }

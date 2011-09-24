@@ -36,7 +36,7 @@ using System.Collections;
 using System.Runtime.Serialization;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using Mono.Globalization.Unicode;
+//using Mono.Globalization.Unicode;
 
 namespace System.Globalization
 {
@@ -834,13 +834,21 @@ namespace System.Globalization
 		[ComVisible (false)]
 		public static bool IsSortable (char ch)
 		{
-			return MSCompatUnicodeTable.IsSortable (ch);
-		}
+#if JSIL
+            throw new NotImplementedException();
+#else
+            return MSCompatUnicodeTable.IsSortable (ch);
+#endif
+        }
 
 		[ComVisible (false)]
 		public static bool IsSortable (string text)
 		{
-			return MSCompatUnicodeTable.IsSortable (text);
+#if JSIL
+            throw new NotImplementedException();
+#else
+            return MSCompatUnicodeTable.IsSortable (text);
+#endif
 		}
 
 		public override string ToString()

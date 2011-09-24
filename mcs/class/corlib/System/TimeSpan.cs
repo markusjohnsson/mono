@@ -359,7 +359,7 @@ namespace System
 			return p.Execute (true, out result);
 		}
 
-#if NET_4_0 || MOONLIGHT || MOBILE
+#if (NET_4_0 || MOONLIGHT || MOBILE) && !JSIL
 		public static TimeSpan Parse (string input, IFormatProvider formatProvider)
 		{
 			if (input == null)
@@ -541,6 +541,7 @@ namespace System
 			if (format != "g" && format != "G")
 				return ToStringCustom (format); // custom formats ignore culture/formatProvider
 
+#if !JSIL
 			NumberFormatInfo number_info = null;
 			if (formatProvider != null)
 				number_info = (NumberFormatInfo)formatProvider.GetFormat (typeof (NumberFormatInfo));
@@ -548,6 +549,8 @@ namespace System
 				number_info = Thread.CurrentThread.CurrentCulture.NumberFormat;
 
 			string decimal_separator = number_info.NumberDecimalSeparator;
+#endif
+            string decimal_separator = ".";
 			int days, hours, minutes, seconds, milliseconds, fractional;
 
 			days = Math.Abs (Days);
@@ -719,7 +722,7 @@ namespace System
 			private int _cur = 0;
 			private int _length;
 			ParseError parse_error;
-#if NET_4_0 || MOONLIGHT || MOBILE
+#if (NET_4_0 || MOONLIGHT || MOBILE) && !JSIL
 			bool parsed_ticks;
 			NumberFormatInfo number_format;
 			int parsed_numbers_count;
@@ -735,12 +738,12 @@ namespace System
 			{
 				_src = src;
 				_length = _src.Length;
-#if NET_4_0 || MOONLIGHT || MOBILE
+#if (NET_4_0 || MOONLIGHT || MOBILE) && !JSIL
 				number_format = GetNumberFormatInfo (null);
 #endif
 			}
 
-#if NET_4_0 || MOONLIGHT || MOBILE
+#if (NET_4_0 || MOONLIGHT || MOBILE) && !JSIL
 			// Reset state data, so we can execute another parse over the input.
 			void Reset ()
 			{
@@ -767,8 +770,8 @@ namespace System
 				return format;
 			}
 #endif
-	
-			public bool AtEnd {
+
+            public bool AtEnd {
 				get {
 					return _cur >= _length;
 				}
@@ -855,12 +858,12 @@ namespace System
 
 				if (!optional && (count == 0))
 					SetParseError (ParseError.Format);
-#if NET_4_0 || MOONLIGHT || MOBILE
+#if (NET_4_0 || MOONLIGHT || MOBILE) && !JSIL
 				if (count > 0)
 					parsed_numbers_count++;
 #endif
 
-				return (int)res;
+                return (int)res;
 			}
 
 			// Parse optional dot
@@ -874,9 +877,9 @@ namespace System
 					return true;
 				}
 				return false;
-			}	
+			}
 
-#if NET_4_0 || MOONLIGHT || MOBILE
+#if (NET_4_0 || MOONLIGHT || MOBILE) && !JSIL
 			// This behaves pretty much like ParseOptDot, but we need to have it
 			// as a separated routine for both days and decimal separators.
 			private bool ParseOptDaysSeparator ()
@@ -936,7 +939,7 @@ namespace System
 			}
 #endif
 
-			private void ParseColon (bool optional)
+            private void ParseColon (bool optional)
 			{
 				if (!AtEnd) {
 					if (_src[_cur] == ':')
@@ -963,14 +966,14 @@ namespace System
 
 				if (!digitseen)
 					SetParseError (ParseError.Format);
-#if NET_4_0 || MOONLIGHT || MOBILE
+#if (NET_4_0 || MOONLIGHT || MOBILE) && !JSIL
 				else if (!AtEnd && Char.IsDigit (_src, _cur))
 					SetParseError (ParseError.Overflow);
 
 				parsed_ticks = true;
 #endif
 
-				return res;
+                return res;
 			}
 
 #if NET_4_0 || MOONLIGHT || MOBILE
@@ -1007,18 +1010,18 @@ namespace System
 				parse_error = error;
 			}
 
-#if NET_4_0 || MOONLIGHT || MOBILE
+#if (NET_4_0 || MOONLIGHT || MOBILE) && !JSIL
 			bool CheckParseSuccess (bool tryParse)
 #else
 			bool CheckParseSuccess (int hours, int minutes, int seconds, bool tryParse)
 #endif
 			{
 				// We always report the first error, but for 2.0 we need to give a higher
-				// precence to per-element overflow (as opposed to int32 overflow).
-#if NET_4_0 || MOONLIGHT || MOBILE
+                // precence to per-element overflow (as opposed to int32 overflow).
+#if (NET_4_0 || MOONLIGHT || MOBILE) && !JSIL
 				if (parse_error == ParseError.Overflow) {
 #else
-				if (parse_error == ParseError.Overflow || hours > 23 || minutes > 59 || seconds > 59) {
+                if (parse_error == ParseError.Overflow || hours > 23 || minutes > 59 || seconds > 59) {
 #endif
 					if (tryParse)
 						return false;
@@ -1036,7 +1039,7 @@ namespace System
 				return true;
 			}
 
-#if NET_4_0 || MOONLIGHT || MOBILE
+#if (NET_4_0 || MOONLIGHT || MOBILE) && !JSIL
 			// We are using a different parse approach in 4.0, due to some changes in the behaviour
 			// of the parse routines.
 			// The input string is documented as:
@@ -1155,7 +1158,7 @@ namespace System
 				return true;
 			}
 #else
-			public bool Execute (bool tryParse, out TimeSpan result)
+            public bool Execute (bool tryParse, out TimeSpan result)
 			{
 				bool sign;
 				int days;
@@ -1220,7 +1223,7 @@ namespace System
 			}
 #endif
 
-#if NET_4_0 || MOONLIGHT || MOBILE
+#if (NET_4_0 || MOONLIGHT || MOBILE) && !JSIL
 			public bool ExecuteWithFormat (string format, TimeSpanStyles style, bool tryParse, out TimeSpan result)
 			{
 				int days, hours, minutes, seconds;
@@ -1326,7 +1329,7 @@ namespace System
 				return true;
 			}
 #endif
-		}
+        }
 #if NET_4_0 || MOONLIGHT || MOBILE
 		enum FormatElementType 
 		{

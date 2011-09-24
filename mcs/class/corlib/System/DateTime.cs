@@ -316,6 +316,7 @@ namespace System
 			encoded = new TimeSpan (AbsoluteDays (year,month,day), hour, minute, second, millisecond).Ticks;
 		}
 
+#if !JSIL
 		public DateTime (int year, int month, int day, Calendar calendar)
 			: this (year, month, day, 0, 0, 0, 0, calendar)
 		{
@@ -332,6 +333,7 @@ namespace System
 				throw new ArgumentNullException ("calendar");
 			encoded = calendar.ToDateTime (year, month, day, hour, minute, second, millisecond).encoded;
 		}
+#endif
 
 		public DateTime (long ticks, DateTimeKind kind) 
 		{
@@ -359,6 +361,7 @@ namespace System
 			encoded |= ((long)kind << KindShift);
 		}
 
+#if !JSIL
 		public DateTime (int year, int month, int day, int hour, int minute, int second, int millisecond, Calendar calendar, DateTimeKind kind)
 			: this (year, month, day, hour, minute, second, millisecond, calendar)
 		{
@@ -380,6 +383,7 @@ namespace System
 				encoded = 0;
 			}
 		}
+#endif
 		
 			      
 		/* Properties  */
@@ -743,10 +747,12 @@ namespace System
 			return dt;
 		}
 
+#if !JSIL
 		public string[] GetDateTimeFormats() 
 		{
 			return GetDateTimeFormats (CultureInfo.CurrentCulture);
 		}
+#endif
 
 		public string[] GetDateTimeFormats(char format)
 		{
@@ -816,6 +822,7 @@ namespace System
 			return  ( (year % 4 == 0 && year % 100 != 0) || year % 400 == 0) ;
 		}
 
+#if !JSIL
 		public static DateTime Parse (string s)
 		{
 			return Parse (s, null);
@@ -1860,6 +1867,7 @@ namespace System
 			ret = DateTime.MinValue;
 			return false;
 		}
+#endif
 		
 		public TimeSpan Subtract (DateTime value)
 		{
@@ -2143,6 +2151,7 @@ namespace System
 			throw new InvalidCastException();
 		}
 
+#if !JSIL
 		void ISerializable.GetObjectData (SerializationInfo info, StreamingContext context)
 		{
 			long t = Ticks;
@@ -2151,6 +2160,7 @@ namespace System
 			// This is the new .NET format, encodes the kind on the top bits
 			info.AddValue ("dateData", encoded);
 		}
+#endif
 		
 #if MONOTOUCH
 		static DateTime () {
