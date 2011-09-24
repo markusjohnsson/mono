@@ -82,6 +82,7 @@ namespace System
 			return (Attribute) attributes[0];
 		}
 
+#if !JSIL
 		public static Attribute GetCustomAttribute (ParameterInfo element, Type attributeType)
 		{
 			return GetCustomAttribute (element, attributeType, true);
@@ -440,5 +441,6 @@ namespace System
 		{
 			throw new NotImplementedException ();
 		}
+#endif
 	}
 }
