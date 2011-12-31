@@ -152,10 +152,9 @@ namespace System.Globalization
 			_UniversalSortableDateTimePattern = "yyyy'-'MM'-'dd HH':'mm':'ss'Z'";
 
 			firstDayOfWeek = (int)DayOfWeek.Sunday;
-#if !JSIL
+
 			calendar = new GregorianCalendar();
 			calendarWeekRule = (int)CalendarWeekRule.FirstDay;
-#endif
 
 			abbreviatedDayNames = INVARIANT_ABBREVIATED_DAY_NAMES;
 			dayNames = INVARIANT_DAY_NAMES;
