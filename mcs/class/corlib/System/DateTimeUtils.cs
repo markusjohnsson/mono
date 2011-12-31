@@ -41,7 +41,7 @@ namespace System {
 #if JSIL
         public static void ZeroPad(StringBuilder output, int digits, int len)
         {
-            throw new NotImplementedException();
+            output.Append(digits.ToString());
         }
 #else
 		public static unsafe void ZeroPad (StringBuilder output, int digits, int len)
