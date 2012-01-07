@@ -36,7 +36,7 @@ using System.Collections;
 using System.Runtime.Serialization;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-//using Mono.Globalization.Unicode;
+using Mono.Globalization.Unicode;
 
 namespace System.Globalization
 {
@@ -366,9 +366,11 @@ namespace System.Globalization
 			if(assembly == null) {
 				throw new ArgumentNullException("assembly");
 			}
+#if !JSIL
 			if(assembly!=typeof (Object).Module.Assembly) {
 				throw new ArgumentException ("Assembly is an invalid type");
 			}
+#endif
 			return(GetCompareInfo (culture));
 		}
 
@@ -385,9 +387,11 @@ namespace System.Globalization
 			if(assembly == null) {
 				throw new ArgumentNullException("assembly");
 			}
+#if !JSIL
 			if(assembly!=typeof (Object).Module.Assembly) {
 				throw new ArgumentException ("Assembly is an invalid type");
 			}
+#endif
 			return(GetCompareInfo (name));
 		}
 

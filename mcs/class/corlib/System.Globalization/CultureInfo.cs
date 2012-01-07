@@ -84,10 +84,12 @@ namespace System.Globalization
 		[NonSerialized]
 		private string territory;
 		volatile CompareInfo compareInfo;
+#if !JSIL
 		[NonSerialized]
 		private unsafe readonly int *calendar_data;
 		[NonSerialized]
 		private unsafe readonly void *textinfo_data;
+#endif
 		[NonSerialized]
 		private Calendar [] optional_calendars;
 		[NonSerialized]
@@ -120,6 +122,7 @@ namespace System.Globalization
 			invariant_culture_info = new CultureInfo (InvariantCultureId, false, true);
 		}
 		
+#if !JSIL
 		public static CultureInfo CreateSpecificCulture (string name)
 		{
 			if (name == null) {
@@ -136,6 +139,7 @@ namespace System.Globalization
 
 			return ci;
 		}
+#endif
 
 		public static CultureInfo CurrentCulture 
 		{
@@ -376,11 +380,13 @@ namespace System.Globalization
 			}
 		}
 
+#if !JSIL
 		public void ClearCachedData()
 		{
 			Thread.CurrentThread.CurrentCulture = null;
 			Thread.CurrentThread.CurrentUICulture = null;
 		}
+#endif
 
 		public virtual object Clone()
 		{
@@ -663,7 +669,6 @@ namespace System.Globalization
 
 		[MethodImplAttribute (MethodImplOptions.InternalCall)]
 		private extern bool construct_internal_locale_from_name (string name);
-
 		[MethodImplAttribute (MethodImplOptions.InternalCall)]
 		private extern static bool construct_internal_locale_from_specific_name (CultureInfo ci,
 				string name);
@@ -710,10 +715,17 @@ namespace System.Globalization
 			win3lang="IVL";
 		}
 
-		private unsafe TextInfo CreateTextInfo (bool readOnly)
+#if !JSIL 
+        private unsafe TextInfo CreateTextInfo (bool readOnly)
 		{
 			return new TextInfo (this, cultureID, this.textinfo_data, readOnly);
 		}
+#else
+        private TextInfo CreateTextInfo (bool readOnly)
+		{
+			return new TextInfo (this, cultureID, readOnly);
+		}
+#endif  
 
 		public CultureInfo (int culture) : this (culture, true) {}
 
@@ -875,7 +887,9 @@ namespace System.Globalization
 			return new CultureInfo (name, use_user_override, read_only);
 		}
 
-		unsafe internal void ConstructCalendars ()
+		
+#if !JSIL
+        unsafe internal void ConstructCalendars ()
 		{
 			if (calendar_data == null) {
 				optional_calendars = new Calendar [] {new GregorianCalendar (GregorianCalendarTypes.Localized)};
@@ -906,5 +920,11 @@ namespace System.Globalization
 				optional_calendars [i] = cal;
 			}
 		}
+#else
+        internal void ConstructCalendars ()
+        {
+            optional_calendars = new Calendar[] { new GregorianCalendar(GregorianCalendarTypes.Localized) };
+        }
+#endif
 	}
 }

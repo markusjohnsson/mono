@@ -34,7 +34,11 @@ namespace System {
 	
 	[Serializable]
 	[System.Runtime.InteropServices.ComVisible (true)]
-	public struct Int32 : IFormattable, IConvertible, IComparable, IComparable<Int32>, IEquatable <Int32>
+	public struct Int32 : IFormattable, 
+#if !JSIL 
+        IConvertible,
+#endif
+        IComparable, IComparable<Int32>, IEquatable <Int32>
 	{
 
 		public const int MaxValue = 0x7fffffff;
@@ -678,6 +682,7 @@ namespace System {
 			return NumberFormatter.NumberToString (format, m_value, provider);
 		}
 
+#if !JSIL
 		// =========== IConvertible Methods =========== //
 
 		public TypeCode GetTypeCode ()
@@ -761,5 +766,6 @@ namespace System {
 		{
 			return System.Convert.ToUInt64 (m_value);
 		}
+#endif
 	}
 }

@@ -30,7 +30,7 @@
 
 // NumberFormatter is shared with Grasshopper and hence the #if TARGET_JVM for
 // marking the use of unsafe code that is not supported in Grasshopper.
-#if !TARGET_JVM
+#if !TARGET_JVM && !JSIL
 #define UNSAFE_TABLES
 #endif
 
@@ -72,7 +72,7 @@ namespace System
 		const double MinRoundtripVal = -1.79769313486231E+308;
 		const double MaxRoundtripVal = 1.79769313486231E+308;
 
-#if UNSAFE_TABLES
+#if UNSAFE_TABLES && !JSIL
 		// The below arrays are taken from mono/metatdata/number-formatter.h
 
 		private static readonly unsafe ulong* MantissaBitsTable;
@@ -516,36 +516,38 @@ namespace System
 			_offset = CountTrailingZeros ();
 			_digitsLen = order - _offset;
 		}
+        
+#if !JSIL
+        private void Init (string format, decimal value)
+        {
+            Init (format);
+            _defPrecision = DecimalDefPrecision;
 
-		private void Init (string format, decimal value)
-		{
-			Init (format);
-			_defPrecision = DecimalDefPrecision;
+            int[] bits = decimal.GetBits (value);
+            int scale = (bits [3] & DecimalBitsScaleMask) >> 16;
+            _positive = bits [3] >= 0;
+            if (bits [0] == 0 && bits [1] == 0 && bits [2] == 0) {
+                _decPointPos = -scale;
+                _positive = true;
+                _digitsLen = 0;
+                return;
+            }
 
-			int[] bits = decimal.GetBits (value);
-			int scale = (bits [3] & DecimalBitsScaleMask) >> 16;
-			_positive = bits [3] >= 0;
-			if (bits [0] == 0 && bits [1] == 0 && bits [2] == 0) {
-				_decPointPos = -scale;
-				_positive = true;
-				_digitsLen = 0;
-				return;
-			}
+            InitDecHexDigits ((uint)bits [2], ((ulong)bits [1] << 32) | (uint)bits [0]);
+            _digitsLen = DecHexLen ();
+            _decPointPos = _digitsLen - scale;
+            if (_precision != -1 || _specifier != 'G') {
+                _offset = CountTrailingZeros ();
+                _digitsLen -= _offset;
+            }
+        }
+#endif
 
-		   	InitDecHexDigits ((uint)bits [2], ((ulong)bits [1] << 32) | (uint)bits [0]);
-			_digitsLen = DecHexLen ();
-			_decPointPos = _digitsLen - scale;
-			if (_precision != -1 || _specifier != 'G') {
-				_offset = CountTrailingZeros ();
-				_digitsLen -= _offset;
-			}
-		}
+        #endregion Constructors
 
-		#endregion Constructors
+        #region Inner String Buffer
 
-		#region Inner String Buffer
-
-		//_cbuf moved to before other fields to improve layout
+        //_cbuf moved to before other fields to improve layout
 		private int _ind;
 
 		private void ResetCharBuf (int size)
@@ -911,14 +913,16 @@ namespace System
 			return res;
 		}
 
-		public static string NumberToString (string format, decimal value, IFormatProvider fp)
-		{
-			NumberFormatter inst = GetInstance();
-			inst.Init (format, value);
-			string res = inst.NumberToString (format, inst.GetNumberFormatInstance (fp));
-			inst.Release();
-			return res;
-		}
+#if !JSIL
+        public static string NumberToString(string format, decimal value, IFormatProvider fp)
+        {
+            NumberFormatter inst = GetInstance();
+            inst.Init(format, value);
+            string res = inst.NumberToString(format, inst.GetNumberFormatInstance(fp));
+            inst.Release();
+            return res;
+        }
+#endif
 
 		public static string NumberToString (uint value, IFormatProvider fp)
 		{

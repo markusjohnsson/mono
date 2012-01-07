@@ -77,17 +77,25 @@ namespace System.Globalization {
 		[NonSerialized]
 		readonly Data data;
 
+#if !JSIL
 		internal unsafe TextInfo (CultureInfo ci, int lcid, void* data, bool read_only)
+#else
+        internal TextInfo(CultureInfo ci, int lcid, bool read_only)
+#endif
 		{
 			this.m_isReadOnly = read_only;
 			this.m_win32LangID = lcid;
 			this.ci = ci;
+#if !JSIL
 			if (data != null)
 				this.data = *(Data*) data;
-			else {
+			else 
+#else
+            {
 				this.data = new Data ();
 				this.data.list_sep = (byte) ',';
 			}
+#endif
 
 			CultureInfo tmp = ci;
 			while (tmp.Parent != null && tmp.Parent.LCID != 0x7F && tmp.Parent != tmp)
@@ -424,8 +432,12 @@ namespace System.Globalization {
 				return c;
 			return ToUpper (c);
 		}
-
+        
+#if !JSIL
 		public unsafe virtual string ToLower (string str)
+#else
+        public virtual string ToLower (string str)
+#endif
 		{
 			// In ICU (3.2) there are a few cases that one single
 			// character results in multiple characters in e.g.
@@ -439,6 +451,7 @@ namespace System.Globalization {
 			if (str.Length == 0)
 				return String.Empty;
 
+#if !JSIL
 			string tmp = String.InternalAllocateStr (str.Length);
 			fixed (char* source = str, dest = tmp) {
 
@@ -451,10 +464,22 @@ namespace System.Globalization {
 					destPtr++;
 				}
 			}
+#else
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < str.Length; i++)
+            {
+                sb.Append(ToLower(str[i]));
+            }
+            var tmp = sb.ToString();
+#endif
 			return tmp;
 		}
 
+#if !JSIL
 		public unsafe virtual string ToUpper (string str)
+#else
+        public virtual string ToUpper (string str)
+#endif
 		{
 			// In ICU (3.2) there is a case that string
 			// is handled beyond per-character conversion, but
@@ -467,6 +492,7 @@ namespace System.Globalization {
 			if (str.Length == 0)
 				return String.Empty;
 
+#if !JSIL
 			string tmp = String.InternalAllocateStr (str.Length);
 			fixed (char* source = str, dest = tmp) {
 
@@ -479,7 +505,15 @@ namespace System.Globalization {
 					destPtr++;
 				}
 			}
-			return tmp;
+#else
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < str.Length; i++)
+            {
+                sb.Append(ToUpper(str[i]));
+            }
+            var tmp = sb.ToString();
+#endif
+            return tmp;
 		}
 
 		[ComVisible (false)]
@@ -494,11 +528,13 @@ namespace System.Globalization {
 		}
 
 		/* IDeserialization interface */
+#if !JSIL
 		[MonoTODO]
 		void IDeserializationCallback.OnDeserialization(object sender)
 		{
 			// FIXME: we need to re-create "data" in order to get most properties working
 		}
+#endif
 
 		/* IClonable */
 		[ComVisible (false)]
