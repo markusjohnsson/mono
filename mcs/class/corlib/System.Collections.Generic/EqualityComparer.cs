@@ -56,8 +56,12 @@ namespace System.Collections.Generic {
 			}
 		}
 
-		int IEqualityComparer.GetHashCode (object obj)
-		{
+#if JSIL
+		public int GetHashCode (object obj)
+#else
+        int IEqualityComparer.GetHashCode (object obj)
+#endif
+        {
 			if (obj == null)
 				return 0;
 
@@ -67,8 +71,12 @@ namespace System.Collections.Generic {
 			return GetHashCode ((T)obj);
 		}
 
-		bool IEqualityComparer.Equals (object x, object y)
-		{
+#if JSIL
+		public bool Equals (object x, object y)
+#else
+        bool IEqualityComparer.Equals (object x, object y)
+#endif
+        {
 			if (x == y)
 				return true;
 
