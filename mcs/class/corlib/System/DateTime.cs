@@ -454,8 +454,16 @@ namespace System
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]
 		internal static extern long GetTimeMonotonic ();
 
+#if !JSIL
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]
 		internal static extern long GetNow ();
+#else
+        internal static long GetNow()
+        {
+            var ms = (double)JSIL.Verbatim.Expression("(new Date()).getTime()");
+            return UnixEpoch + TimeSpan.TicksPerMillisecond * (long)ms;
+        }
+#endif
 
 		//
 		// To reduce the time consumed by DateTime.Now, we keep
@@ -464,7 +472,7 @@ namespace System
 		// for this in `last_now'
 		//
 		static object to_local_time_span_object;
-		static long last_now;
+		static long last_now = 0L;
 		
 		public static DateTime Now {
 			get {
