@@ -25,6 +25,10 @@ namespace System.Threading
                 NumberFormatter.SetThreadCurrentCulture(culture);
                 return culture;
             }
+            set
+            {
+                current_culture = value;
+            }
         }
 
         public int ManagedThreadId

@@ -1,6 +1,7 @@
 ﻿
 using JSIL.Meta;
 using JSIL.Proxy;
+using JSIL;
 namespace System
 {
     public static class Math
@@ -20,20 +21,28 @@ namespace System
         [JSReplacement("Math.max($a, $b)")]
         public extern static double Max(double a, double b);
 
-        [JSReplacement("Math.abs($value)")]
-        public extern static int Abs(int value);
+        public static int Abs(int value)
+        {
+            return (int)Verbatim.Expression("Math.abs($value)");
+        }
 
-        [JSReplacement("$value.compare(goog.math.Long.ZERO) >= 0 ? $value : $value.neg()")]
-        public extern static long Abs(long value);
+        public static long Abs(long value)
+        {
+            return value < 0L ? -value : value;
+        }
+
+        public static float Abs(float value)
+        {
+            return (float)Verbatim.Expression("Math.abs($value)");
+        }
+
+        public static double Abs(double value)
+        {
+            return (double)Verbatim.Expression("Math.abs($value)");
+        }
 
         [JSReplacement("$value < 0 ? -1 : $value > 0 ? 1 : 0")]
         public extern static int Sign(double value);
-
-        [JSReplacement("Math.abs($value)")]
-        public extern static float Abs(float value);
-
-        [JSReplacement("Math.abs($value)")]
-        public extern static double Abs(double value);
 
         [JSReplacement("Math.sqrt($d)")]
         public extern static double Sqrt(double d);
@@ -56,10 +65,10 @@ namespace System
         [JSReplacement("Math.ceil($d)")]
         public extern static double Ceiling(double d);
 
-        [JSReplacement("Math.abs($value)")]
+        //[JSReplacement("Math.abs($value)")]
         public extern static double Pow(double p, int num_parsed);
         
-        [JSReplacement("Math.abs($value)")]
+        //[JSReplacement("Math.abs($value)")]
         public extern static double Log(double p);
     }
 }

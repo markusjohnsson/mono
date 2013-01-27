@@ -35,7 +35,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+#if !JSIL
 using System.Runtime.Serialization.Formatters.Binary;
+#endif
 using System.Text;
 using System.Threading;
 
@@ -211,6 +213,7 @@ namespace MonoTests.System.Collections.Generic {
 			
 		}
 
+#if !JSIL
 		[Test]
 		[Category ("NotWorking")]
 		public void Remove_ZeroOut ()
@@ -233,8 +236,9 @@ namespace MonoTests.System.Collections.Generic {
 			Assert.IsNull (wrKey.Target, "#1");
 			Assert.IsNull (wrValue.Target, "#2");
 		}
-	
-		[Test, ExpectedException(typeof(ArgumentNullException))]
+#endif
+
+        [Test, ExpectedException(typeof(ArgumentNullException))]
 		public void IndexerSetNullTest()
 		{
 			_dictionary[null] = "bar";
@@ -265,6 +269,7 @@ namespace MonoTests.System.Collections.Generic {
 			}
 		}
 
+#if !JSIL
 		[Test]
 		[Category ("NotWorking")]
 		public void Clear_ZeroOut ()
@@ -286,7 +291,8 @@ namespace MonoTests.System.Collections.Generic {
 
 			Assert.IsNull (wrKey.Target, "#1");
 			Assert.IsNull (wrValue.Target, "#2");
-		}
+        }
+#endif
 
 		[Test]
 		public void ContainsKeyTest ()
@@ -606,6 +612,7 @@ namespace MonoTests.System.Collections.Generic {
 			Assert.Fail ("Should not be reached");
 		}
 
+#if !JSIL
 		[Test]
 		[Category ("TargetJvmNotWorking")] // BUGBUG Very very slow on TARGET_JVM.
 		public void SerializationTest()
@@ -634,8 +641,9 @@ namespace MonoTests.System.Collections.Generic {
 				Assert.AreEqual(i, d3[i]);
 			}
 		}
+#endif
 
-		[Test]
+        [Test]
 		public void ZeroCapacity ()
 		{
 			Dictionary<int, int> x = new Dictionary <int, int> (0);
@@ -1167,6 +1175,7 @@ namespace MonoTests.System.Collections.Generic {
 			c.CopyTo (new MyClass [1], 0);
 		}
 
+#if !JSIL
 		[Test] // bug 474009
 		public void DeserializeEmptyDictionary ()
 		{
@@ -1230,7 +1239,8 @@ BgcAAAABMQEAAAAL";
 			for (int i = 0; i < dict.Count; i++)
 				Assert.AreEqual (i, dict[i.ToString ()]);
 		}
-	}
+#endif
+    }
 }
 
 #endif // NET_2_0

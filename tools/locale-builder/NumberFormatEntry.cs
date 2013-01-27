@@ -52,7 +52,11 @@ namespace Mono.Tools.LocaleBuilder {
                 
                 public void AppendTableRow (StringBuilder builder)
                 {
+#if !JSIL
                         builder.Append ("\t{");
+#else
+                        builder.Append ("\t[");
+#endif
 
                         builder.Append (EncodeStringIdx (CurrencyDecimalSeparator) + ", ");
                         builder.Append (EncodeStringIdx (CurrencyGroupSeparator) + ", ");
@@ -86,15 +90,23 @@ namespace Mono.Tools.LocaleBuilder {
                         AppendGroupSizes (builder, PercentGroupSizes);
                         builder.Append (", ");
                         AppendGroupSizes (builder, NumberGroupSizes);
-                        
+
+#if !JSIL
                         builder.Append ('}');
+#else
+                        builder.Append (']');
+#endif
                 }
 
                 private void AppendGroupSizes (StringBuilder builder, int [] gs)
                 {
                         int len = (gs == null ? 0 : gs.Length);
 
+#if !JSIL
                         builder.Append ('{');
+#else
+                        builder.Append ('[');
+#endif
                         for (int i = 0; i < MaxGroupSize; i++) {
                                 if (i < len)
                                         builder.Append (gs [0]);
@@ -103,7 +115,12 @@ namespace Mono.Tools.LocaleBuilder {
                                 if (i+1 < MaxGroupSize)
                                         builder.Append (", ");
                         }
+
+#if !JSIL
                         builder.Append ('}');
+#else
+                        builder.Append (']');
+#endif
                 }
 
                 public override string ToString ()

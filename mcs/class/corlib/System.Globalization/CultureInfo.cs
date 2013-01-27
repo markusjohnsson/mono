@@ -34,6 +34,7 @@ using System.Collections;
 using System.Threading;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using JSIL.Meta;
 
 namespace System.Globalization
 {
@@ -89,6 +90,11 @@ namespace System.Globalization
 		private unsafe readonly int *calendar_data;
 		[NonSerialized]
 		private unsafe readonly void *textinfo_data;
+#else
+        [NonSerialized]
+        private readonly object[] calendar_data;
+        [NonSerialized]
+        private readonly object[] textinfo_data;
 #endif
 		[NonSerialized]
 		private Calendar [] optional_calendars;
@@ -122,7 +128,6 @@ namespace System.Globalization
 			invariant_culture_info = new CultureInfo (InvariantCultureId, false, true);
 		}
 		
-#if !JSIL
 		public static CultureInfo CreateSpecificCulture (string name)
 		{
 			if (name == null) {
@@ -139,7 +144,6 @@ namespace System.Globalization
 
 			return ci;
 		}
-#endif
 
 		public static CultureInfo CurrentCulture 
 		{
@@ -664,29 +668,62 @@ namespace System.Globalization
 			return true;
 		}
 
+#if JSIL
+        [JSReplacement("JSIL.CultureInfo.construct_internal_locale_from_lcid($this, $lcid)")]
+#else
 		[MethodImplAttribute (MethodImplOptions.InternalCall)]
+#endif
 		private extern bool construct_internal_locale_from_lcid (int lcid);
 
+#if JSIL
+        [JSReplacement("JSIL.CultureInfo.construct_internal_locale_from_name($this, $name)")]
+#else
 		[MethodImplAttribute (MethodImplOptions.InternalCall)]
+#endif
 		private extern bool construct_internal_locale_from_name (string name);
+
+#if JSIL
+        [JSReplacement("JSIL.CultureInfo.construct_internal_locale_from_specific_name($ci, $name)")]
+#else
 		[MethodImplAttribute (MethodImplOptions.InternalCall)]
+#endif
 		private extern static bool construct_internal_locale_from_specific_name (CultureInfo ci,
 				string name);
 
+#if JSIL
+        [JSReplacement("JSIL.CultureInfo.construct_internal_locale_from_current_locale($ci)")]
+#else
 		[MethodImplAttribute (MethodImplOptions.InternalCall)]
+#endif
 		private extern static bool construct_internal_locale_from_current_locale (CultureInfo ci);
 
+#if JSIL
+        [JSReplacement("JSIL.CultureInfo.internal_get_cultures($neutral, $specific, $installed)")]
+#else
 		[MethodImplAttribute (MethodImplOptions.InternalCall)]
+#endif
 		private extern static CultureInfo [] internal_get_cultures (bool neutral, bool specific, bool installed);
 
+#if JSIL
+        [JSReplacement("JSIL.CultureInfo.construct_datetime_format($this)")]
+#else
 		[MethodImplAttribute (MethodImplOptions.InternalCall)]
+#endif
 		private extern void construct_datetime_format ();
 
+#if JSIL
+        [JSReplacement("JSIL.CultureInfo.construct_number_format($this)")]
+#else
 		[MethodImplAttribute (MethodImplOptions.InternalCall)]
+#endif
 		private extern void construct_number_format ();
 
 		// Returns false if the culture can not be found, sets is_neutral if it is
+#if JSIL
+        [JSReplacement("JSIL.CultureInfo.internal_is_lcid_neutral($lcid, $is_neutral)")]
+#else
 		[MethodImplAttribute (MethodImplOptions.InternalCall)]
+#endif
 		private extern static bool internal_is_lcid_neutral (int lcid, out bool is_neutral);
 
 		private void ConstructInvariant (bool read_only)
@@ -717,15 +754,12 @@ namespace System.Globalization
 
 #if !JSIL 
         private unsafe TextInfo CreateTextInfo (bool readOnly)
-		{
-			return new TextInfo (this, cultureID, this.textinfo_data, readOnly);
-		}
 #else
         private TextInfo CreateTextInfo (bool readOnly)
-		{
-			return new TextInfo (this, cultureID, readOnly);
-		}
-#endif  
+#endif
+        {
+            return new TextInfo(this, cultureID, this.textinfo_data, readOnly);
+        }
 
 		public CultureInfo (int culture) : this (culture, true) {}
 
@@ -889,7 +923,9 @@ namespace System.Globalization
 
 		
 #if !JSIL
-        unsafe internal void ConstructCalendars ()
+        unsafe 
+#endif
+        internal void ConstructCalendars ()
 		{
 			if (calendar_data == null) {
 				optional_calendars = new Calendar [] {new GregorianCalendar (GregorianCalendarTypes.Localized)};
@@ -900,7 +936,11 @@ namespace System.Globalization
 
 			for (int i=0; i<NumOptionalCalendars; i++) {
 				Calendar cal = null;
+#if !JSIL
 				int caldata = *(calendar_data + i);
+#else
+                int caldata = (int)calendar_data[i];
+#endif
 				int caltype = (caldata >> CalendarTypeBits);
 				switch (caltype) {
 				case 0:
@@ -908,23 +948,19 @@ namespace System.Globalization
 					greg_type = (GregorianCalendarTypes) (caldata & GregorianTypeMask);
 					cal = new GregorianCalendar (greg_type);
 					break;
+#if !JSIL
 				case 1:
 					cal = new HijriCalendar ();
 					break;
 				case 2:
 					cal = new ThaiBuddhistCalendar ();
 					break;
+#endif
 				default:
 					throw new Exception ("invalid calendar type:  " + caldata);
 				}
 				optional_calendars [i] = cal;
 			}
 		}
-#else
-        internal void ConstructCalendars ()
-        {
-            optional_calendars = new Calendar[] { new GregorianCalendar(GregorianCalendarTypes.Localized) };
-        }
-#endif
 	}
 }

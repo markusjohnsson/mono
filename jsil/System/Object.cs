@@ -7,28 +7,31 @@ namespace System
 {
     public class Object
     {
-        [JSReplacement("JSIL.GetType($this)")]
-        [JSIsPure]
+        //[JSReplacement("JSIL.GetType($this)")]
+        //[JSIsPure]
         public extern Type GetType();
 
-        [JSExternal]
+        //[JSExternal]
         protected extern object MemberwiseClone();
 
-        [JSExternal]
-        [JSIsPure]
+        //[JSExternal]
+        //[JSIsPure]
+        //[JSReplacement("JSIL.ObjectEquals($this, $obj)")]
         public extern virtual bool Equals(object obj);
 
         //[JSChangeName("toString")]
         //[JSExternal]
         //public extern virtual string ToString();
 
+        [JSChangeName("toString")]
+        [JSNeverReplace]
+        [JSRuntimeDispatch]
+        public virtual string ToString() 
+        {
+            return "System.Object";
+        }
 
-        //[JSChangeName("toString")]
-        //[JSNeverReplace]
-        //[JSRuntimeDispatch]
-        public extern virtual string ToString();
-
-        [JSExternal]
+        [JSReplacement("JSIL.ObjectHashCode($this)")]
         public extern virtual int GetHashCode();
 
         protected static bool Equals(object o1, object o2)

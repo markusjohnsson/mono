@@ -830,7 +830,6 @@ namespace System
 			return  ( (year % 4 == 0 && year % 100 != 0) || year % 400 == 0) ;
 		}
 
-#if !JSIL
 		public static DateTime Parse (string s)
 		{
 			return Parse (s, null);
@@ -1875,7 +1874,6 @@ namespace System
 			ret = DateTime.MinValue;
 			return false;
 		}
-#endif
 		
 		public TimeSpan Subtract (DateTime value)
 		{

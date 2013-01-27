@@ -1,21 +1,25 @@
 ﻿using System;
 
-namespace JSIL.Meta {
-    public enum JSReadPolicy {
+namespace JSIL.Meta
+{
+    public enum JSReadPolicy
+    {
         Unmodified,
         LogWarning,
         ThrowError,
         ReturnDefaultValue
     }
 
-    public enum JSInvokePolicy {
+    public enum JSInvokePolicy
+    {
         Unmodified,
         LogWarning,
         ThrowError,
         ReturnDefaultValue
     }
 
-    public enum JSWritePolicy {
+    public enum JSWritePolicy
+    {
         Unmodified,
         LogWarning,
         ThrowError,
@@ -26,43 +30,50 @@ namespace JSIL.Meta {
     /// Specifies that a class, method, property or field should be ignored when translating code to JavaScript.
     /// </summary>
     [AttributeUsage(
-        AttributeTargets.Class | AttributeTargets.Method | 
+        AttributeTargets.Class | AttributeTargets.Method |
         AttributeTargets.Property | AttributeTargets.Field |
         AttributeTargets.Event | AttributeTargets.Constructor |
         AttributeTargets.Module | AttributeTargets.Struct |
         AttributeTargets.Enum | AttributeTargets.Interface
     )]
-    public class JSIgnore : Attribute {
+    public class JSIgnore : Attribute
+    {
     }
 
     /// <summary>
     /// Specifies a policy to apply to reads, writes, or invocations of a member when translating code to JavaScript.
     /// </summary>
     [AttributeUsage(
-        AttributeTargets.Method | AttributeTargets.Property | 
-        AttributeTargets.Field | AttributeTargets.Event | 
+        AttributeTargets.Method | AttributeTargets.Property |
+        AttributeTargets.Field | AttributeTargets.Event |
         AttributeTargets.Constructor
     )]
-    public class JSPolicy : Attribute {
-        public JSPolicy (
+    public class JSPolicy : Attribute
+    {
+        public JSPolicy(
             JSReadPolicy read = JSReadPolicy.Unmodified,
             JSWritePolicy write = JSWritePolicy.Unmodified,
             JSInvokePolicy invoke = JSInvokePolicy.Unmodified
-        ) {
+        )
+        {
         }
     }
 
     /// <summary>
     /// Specifies that references to this identifier should be replaced with a specified javascript expression when translating code to JavaScript.
     /// To refer to a parameter within the replacement expression, prefix the parameter name with a dollar sign - the this-reference becomes $this, for example.
+    /// To insert a dollar sign into the replacement expression, write '$$'.
+    /// When replacing a constructor, '$this' can be used to refer to the this-reference if the constructor is being called in-place on a struct instance.
     /// </summary>
     [AttributeUsage(
         AttributeTargets.Method | AttributeTargets.Constructor |
-        AttributeTargets.Property | AttributeTargets.Class | 
+        AttributeTargets.Property | AttributeTargets.Class |
         AttributeTargets.Struct
     )]
-    public class JSReplacement : Attribute {
-        public JSReplacement (string expression) {
+    public class JSReplacement : Attribute
+    {
+        public JSReplacement(string expression)
+        {
         }
     }
 
@@ -71,11 +82,26 @@ namespace JSIL.Meta {
     /// </summary>
     [AttributeUsage(
         AttributeTargets.Method | AttributeTargets.Field |
-        AttributeTargets.Property | AttributeTargets.Class | 
+        AttributeTargets.Property | AttributeTargets.Class |
         AttributeTargets.Struct | AttributeTargets.Enum
     )]
-    public class JSChangeName : Attribute {
-        public JSChangeName (string newName) {
+    public class JSChangeName : Attribute
+    {
+        public JSChangeName(string newName)
+        {
+        }
+    }
+
+    /// <summary>
+    /// Specifies that uses of this constructor should be replaced with invocations of a static method.
+    /// </summary>
+    [AttributeUsage(
+        AttributeTargets.Constructor
+    )]
+    public class JSChangeToStaticMethod : Attribute
+    {
+        public JSChangeToStaticMethod(string staticMethodName)
+        {
         }
     }
 
@@ -84,9 +110,10 @@ namespace JSIL.Meta {
     /// </summary>
     [AttributeUsage(
         AttributeTargets.Method | AttributeTargets.Constructor |
-        AttributeTargets.Property                
+        AttributeTargets.Property
     )]
-    public class JSRuntimeDispatch : Attribute {
+    public class JSRuntimeDispatch : Attribute
+    {
     }
 
     /// <summary>
@@ -104,6 +131,52 @@ namespace JSIL.Meta {
         AttributeTargets.Property | AttributeTargets.Class |
         AttributeTargets.Field
     )]
-    public class JSExternal : Attribute {
+    public class JSExternal : Attribute
+    {
+    }
+
+    /// <summary>
+    /// Specifies that this method should be renamed to .cctor2 so that it runs as a second static constructor for the containing
+    ///  type in JS. If the method is part of a proxy, it will run as the second static constructor for the proxied type(s).
+    /// </summary>
+    [AttributeUsage(
+        AttributeTargets.Constructor
+    )]
+    public class JSExtraStaticConstructor : Attribute
+    {
+    }
+
+    /// <summary>
+    /// Specifies that you wish to replace an existing constructor with one from your proxy. This is necessary because
+    ///  the compiler automatically generates hidden constructors for your proxy classes.
+    /// </summary>
+    [AttributeUsage(
+        AttributeTargets.Constructor
+    )]
+    public class JSReplaceConstructor : Attribute
+    {
+    }
+
+    /// <summary>
+    /// If applied to a field, specifies that you wish for JSIL to treat the specified field as if it is immutable.
+    /// Struct copies will not be generated for the annotated field or any of its members.
+    /// If applied to a class/struct, the class/struct and all its fields are treated as if they are immutable.
+    /// </summary>
+    [AttributeUsage(
+        AttributeTargets.Field | AttributeTargets.Class | AttributeTargets.Struct
+    )]
+    public class JSImmutable : Attribute
+    {
+    }
+
+    /// <summary>
+    /// Specifies that it is invalid to access this property by invoking its getter/setter
+    ///  methods directly in JavaScript.
+    /// </summary>
+    [AttributeUsage(
+        AttributeTargets.Property
+    )]
+    public class JSAlwaysAccessAsProperty : Attribute
+    {
     }
 }

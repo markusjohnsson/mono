@@ -1217,6 +1217,7 @@ namespace MonoTests.System
 			Assert.AreEqual (0, dt.Millisecond, "#B7");
 		}
 
+#if !JSIL
 		[Test]
 #if NET_4_0
 		[Ignore ("Current-culture dependent test, which is not valid in 4.0 anymore")]
@@ -1300,6 +1301,7 @@ namespace MonoTests.System
 				DateTime.Parse ("4:35:35 AM", ci);
 			}
 		}
+#endif
 
 		[Test]
 		[ExpectedException (typeof (FormatException))]
@@ -1457,7 +1459,8 @@ namespace MonoTests.System
 			Assert.AreEqual (tick1, dt.Ticks, "#10:" + d);
 		}
 
-		[Test]
+        #if !JSIL
+        [Test]
 		public void TimeZoneAdjustment ()
 		{
 			CultureInfo ci = Thread.CurrentThread.CurrentCulture;
@@ -1487,6 +1490,7 @@ namespace MonoTests.System
 			Assert.AreEqual (DateTime.MinValue, DateTime.ParseExact ("00010101T00:00:00",
 					"yyyyMMdd'T'HH':'mm':'ss", DateTimeFormatInfo.InvariantInfo), "#5");
 		}
+        #endif
 
 		[Test]
 		public void DateTimeStylesAdjustToUniversal ()
@@ -1950,12 +1954,14 @@ namespace MonoTests.System
 			Assert.IsTrue (dt.Equals (dt2));
 		}
 
-		[Test]
+        #if !JSIL
+        [Test]
 		[ExpectedException (typeof (InvalidCastException))]
 		public void IConvertible_ToType_DBNull () 
 		{
 			((IConvertible)DateTime.Now).ToType (typeof (DBNull), null);
 		}
+        #endif
 
 		[Test]
 		[ExpectedException (typeof (InvalidCastException))]

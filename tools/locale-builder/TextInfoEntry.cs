@@ -32,7 +32,12 @@ namespace Mono.Tools.LocaleBuilder {
                 public override string ToString ()
                 {
 			StringBuilder b = new StringBuilder ();
-			b.Append ("{ ");
+
+#if !JSIL
+            b.Append ('{');
+#else
+            b.Append ('[');
+#endif
 			b.Append (ansi);
 			b.Append (", ");
 			b.Append (ebcdic);
@@ -42,7 +47,11 @@ namespace Mono.Tools.LocaleBuilder {
 			b.Append (oem);
 			b.Append (", '");
 			b.Append (listsep);
+#if !JSIL
 			b.Append ("' }");
+#else
+            b.Append("' ]");
+#endif
 			
 			return b.ToString ();
 		}

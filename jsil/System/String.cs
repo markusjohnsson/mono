@@ -190,10 +190,8 @@ namespace System
             return (string)Verbatim.Expression(@"dest.substr(0, targetIndex) + source.substr(startIndex, length)");
         }
 
-        internal string SubstringUnchecked(int startIndex, int length)
-        {
-            return (string)Verbatim.Expression("this.substr(startIndex, length)");
-        }
+        [JSReplacement("$this.substr($startIndex, $length)")]
+        internal extern string SubstringUnchecked(int startIndex, int length);
 
         public string Substring(int startIndex, int count)
         {
@@ -227,64 +225,149 @@ namespace System
             throw new NotImplementedException();
         }
 
-        public string TrimStart(params char[] trimChars)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string TrimEnd(params char[] trimChars)
-        {
-            throw new NotImplementedException();
-        }
-
         public static bool IsNullOrEmpty(string s)
         {
             throw new NotImplementedException();
         }
 
-        public bool EndsWith(string p)
+        internal static int Compare(string s, int i, string p, int p_2, int p_3)
         {
             throw new NotImplementedException();
         }
 
-        public bool StartsWith(string p)
+        public static int Compare(String strA, int indexA, String strB, int indexB, int length, bool ignoreCase, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            if (culture == null)
+                throw new ArgumentNullException("culture");
+
+            if ((indexA > strA.Length) || (indexB > strB.Length) || (indexA < 0) || (indexB < 0) || (length < 0))
+                throw new ArgumentOutOfRangeException();
+
+            if (length == 0)
+                return 0;
+
+            if (strA == null)
+            {
+                if (strB == null)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+            else if (strB == null)
+            {
+                return 1;
+            }
+
+            CompareOptions compopts;
+
+            if (ignoreCase)
+                compopts = CompareOptions.IgnoreCase;
+            else
+                compopts = CompareOptions.None;
+
+            // Need to cap the requested length to the
+            // length of the string, because
+            // CompareInfo.Compare will insist that length
+            // <= (string.Length - offset)
+
+            int len1 = length;
+            int len2 = length;
+
+            if (length > (strA.Length - indexA))
+            {
+                len1 = strA.Length - indexA;
+            }
+
+            if (length > (strB.Length - indexB))
+            {
+                len2 = strB.Length - indexB;
+            }
+
+            // ENHANCE: Might call internal_compare_switch directly instead of doing all checks twice
+            return culture.CompareInfo.Compare(strA, indexA, len1, strB, indexB, len2, compopts);
         }
 
-        public string[] Split(char p)
-        {
-            throw new NotImplementedException();
-        }
+    }
 
-        public string[] Split(char[] p, int p_2)
+    public static class StringEx
+    {
+        public static string TrimStart(this string self, params char[] trimChars)
         {
-            throw new NotImplementedException();
-        }
-
-        public string Trim()
-        {
-            if (Length == 0)
+            if (self.Length == 0)
                 return String.Empty;
-            int start = FindNotWhiteSpace(0, Length, 1);
+            int start = FindNotWhiteSpace(self, 0, self.Length, 1);
 
-            if (start == Length)
+            if (start == self.Length)
                 return String.Empty;
 
-            int end = FindNotWhiteSpace(Length - 1, start, -1);
+            var newLength = self.Length - start;
+
+            return self.SubstringUnchecked(start, newLength);
+        }
+
+        public static string TrimEnd(this string self, params char[] trimChars)
+        {
+            int start = 0;
+
+            if (start == self.Length)
+                return String.Empty;
+
+            int end = FindNotWhiteSpace(self, self.Length - 1, start, -1);
 
             int newLength = end - start + 1;
-            if (newLength == Length)
-                return this;
+            if (newLength == self.Length)
+                return self;
 
-            return SubstringUnchecked(start, newLength);
+            return self.SubstringUnchecked(start, newLength);
         }
 
-        private int FindNotWhiteSpace(int pos, int target, int change)
+        public static bool EndsWith(this string self, string p)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static bool StartsWith(this string self, string p)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static string[] Split(this string self, char p)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static string[] Split(this string self, char[] p, int p_2)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static string Trim(this string self)
+        {
+            if (self.Length == 0)
+                return String.Empty;
+            int start = FindNotWhiteSpace(self, 0, self.Length, 1);
+
+            if (start == self.Length)
+                return String.Empty;
+
+            int end = FindNotWhiteSpace(self, self.Length - 1, start, -1);
+
+            int newLength = end - start + 1;
+            if (newLength == self.Length)
+                return self;
+
+            return self.SubstringUnchecked(start, newLength);
+        }
+
+        private static int FindNotWhiteSpace(string self, int pos, int target, int change)
         {
             while (pos != target)
             {
-                char c = this[pos];
+                char c = self[pos];
                 if (c < 0x85)
                 {
                     if (c != 0x20)
@@ -312,9 +395,5 @@ namespace System
             return pos;
         }
 
-        internal static int Compare(string s, int i, string p, int p_2, int p_3)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -1,0 +1,5 @@
+C:\Users\markus.johnsson\SideProjects\JSIL.corlib\mono\jsil\bin\Debug\mscorlib.dll
+C:\Users\markus.johnsson\SideProjects\JSIL.corlib\mono\jsil\bin\Debug\mscorlib.pdb
+C:\Users\markus.johnsson\SideProjects\JSIL.corlib\mono\jsil\obj\Debug\JSIL.corlib.csprojResolveAssemblyReference.cache
+C:\Users\markus.johnsson\SideProjects\JSIL.corlib\mono\jsil\obj\Debug\mscorlib.dll
+C:\Users\markus.johnsson\SideProjects\JSIL.corlib\mono\jsil\obj\Debug\mscorlib.pdb

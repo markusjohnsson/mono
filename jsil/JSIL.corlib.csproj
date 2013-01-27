@@ -159,6 +159,9 @@
     <Compile Include="..\mcs\class\corlib\System.Globalization\DateTimeFormatInfo.cs">
       <Link>System.Globalization\DateTimeFormatInfo.cs</Link>
     </Compile>
+    <Compile Include="..\mcs\class\corlib\System.Globalization\DateTimeStyles.cs">
+      <Link>System.Globalization\DateTimeStyles.cs</Link>
+    </Compile>
     <Compile Include="..\mcs\class\corlib\System.Globalization\DaylightTime.cs">
       <Link>System.Globalization\DaylightTime.cs</Link>
     </Compile>
@@ -408,6 +411,9 @@
     <Compile Include="..\mcs\class\corlib\System\TypeCode.cs">
       <Link>System\TypeCode.cs</Link>
     </Compile>
+    <Compile Include="..\mcs\class\System.Core\System.Runtime.CompilerServices\ExtensionAttribute.cs">
+      <Link>System.Runtime.CompilerServices\ExtensionAttribute.cs</Link>
+    </Compile>
     <Compile Include="Mono.Globalization.Unicode\SimpleCollator.cs" />
     <Compile Include="JSIL.Security\BitConverterLE.cs" />
     <Compile Include="MonoTODOAttribute.cs" />
@@ -417,6 +423,7 @@
     <Compile Include="System.Diagnostics\DebuggerTypeProxy.cs" />
     <Compile Include="System.Globalization\CCGregorianCalendar.cs" />
     <Compile Include="System.Reflection\Assembly.cs" />
+    <Compile Include="System.Reflection\MemberInfo.cs" />
     <Compile Include="System.Runtime.CompilerServices\RuntimeHelpers.cs" />
     <Compile Include="System.Runtime.Serialization\IDeserializationCallback.cs" />
     <Compile Include="System.Runtime.Serialization\IObjectReference.cs" />
@@ -476,6 +483,7 @@
     <Compile Include="System\ValueType.cs" />
     <Compile Include="System\Void.cs" />
     <Compile Include="_JSIL\Attributes.cs" />
+    <Compile Include="_JSIL\Object.cs" />
     <Compile Include="_JSIL\Proxies.cs" />
     <Compile Include="_JSIL\StaticAnalysis.cs" />
     <Compile Include="_JSIL\String.cs" />

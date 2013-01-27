@@ -22,12 +22,12 @@ public class TimeSpanTest {
 
 	private void Debug (TimeSpan ts) 
 	{
-		Console.Out.WriteLine ("Days {0}", ts.Days);
-		Console.Out.WriteLine ("Hours {0}", ts.Hours);
-		Console.Out.WriteLine ("Minutes {0}", ts.Minutes);
-		Console.Out.WriteLine ("Seconds {0}", ts.Seconds);
-		Console.Out.WriteLine ("Milliseconds {0}", ts.Milliseconds);
-		Console.Out.WriteLine ("Ticks {0}", ts.Ticks);
+		Console.WriteLine ("Days {0}", ts.Days);
+		Console.WriteLine ("Hours {0}", ts.Hours);
+		Console.WriteLine ("Minutes {0}", ts.Minutes);
+		Console.WriteLine ("Seconds {0}", ts.Seconds);
+		Console.WriteLine ("Milliseconds {0}", ts.Milliseconds);
+		Console.WriteLine ("Ticks {0}", ts.Ticks);
 	}
 
 	public void TestCtors ()

@@ -1,0 +1,5 @@
+C:\Users\markus.johnsson\SideProjects\JSIL.corlib\mono\jsil-test\LocaleBuilder\bin\Debug\LocaleBuilder.exe
+C:\Users\markus.johnsson\SideProjects\JSIL.corlib\mono\jsil-test\LocaleBuilder\bin\Debug\LocaleBuilder.pdb
+C:\Users\markus.johnsson\SideProjects\JSIL.corlib\mono\jsil-test\LocaleBuilder\obj\x86\Debug\LocaleBuilder.exe
+C:\Users\markus.johnsson\SideProjects\JSIL.corlib\mono\jsil-test\LocaleBuilder\obj\x86\Debug\LocaleBuilder.pdb
+C:\Users\markus.johnsson\SideProjects\JSIL.corlib\mono\jsil-test\LocaleBuilder\obj\x86\Debug\LocaleBuilder.csprojResolveAssemblyReference.cache

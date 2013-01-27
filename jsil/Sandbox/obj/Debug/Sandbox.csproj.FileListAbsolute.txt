@@ -1,0 +1,14 @@
+C:\Users\markus.johnsson\SideProjects\JSIL.corlib\mono\jsil\Sandbox\bin\Debug\Sandbox.exe.config
+C:\Users\markus.johnsson\SideProjects\JSIL.corlib\mono\jsil\Sandbox\bin\Debug\Sandbox.exe
+C:\Users\markus.johnsson\SideProjects\JSIL.corlib\mono\jsil\Sandbox\bin\Debug\Sandbox.pdb
+C:\Users\markus.johnsson\SideProjects\JSIL.corlib\mono\jsil\Sandbox\obj\Debug\Sandbox.csprojResolveAssemblyReference.cache
+C:\Users\markus.johnsson\SideProjects\JSIL.corlib\mono\jsil\Sandbox\obj\Debug\Sandbox.exe
+C:\Users\markus.johnsson\SideProjects\JSIL.corlib\mono\jsil\Sandbox\obj\Debug\Sandbox.pdb
+C:\Users\markus.johnsson\SideProjects\JSIL.corlib\mono\jsil\Sandbox\bin\Debug\System.Reactive.Core.dll
+C:\Users\markus.johnsson\SideProjects\JSIL.corlib\mono\jsil\Sandbox\bin\Debug\System.Reactive.Interfaces.dll
+C:\Users\markus.johnsson\SideProjects\JSIL.corlib\mono\jsil\Sandbox\bin\Debug\System.Reactive.Linq.dll
+C:\Users\markus.johnsson\SideProjects\JSIL.corlib\mono\jsil\Sandbox\bin\Debug\System.Reactive.PlatformServices.dll
+C:\Users\markus.johnsson\SideProjects\JSIL.corlib\mono\jsil\Sandbox\bin\Debug\System.Reactive.Core.xml
+C:\Users\markus.johnsson\SideProjects\JSIL.corlib\mono\jsil\Sandbox\bin\Debug\System.Reactive.Interfaces.xml
+C:\Users\markus.johnsson\SideProjects\JSIL.corlib\mono\jsil\Sandbox\bin\Debug\System.Reactive.Linq.xml
+C:\Users\markus.johnsson\SideProjects\JSIL.corlib\mono\jsil\Sandbox\bin\Debug\System.Reactive.PlatformServices.xml

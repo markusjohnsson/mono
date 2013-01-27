@@ -76,7 +76,11 @@ namespace Mono.Tools.LocaleBuilder {
 
                 public void AppendTableRow (StringBuilder builder)
                 {
+#if !JSIL
                         builder.Append ("\t{");
+#else
+                    builder.Append("\t[");
+#endif
                         builder.AppendFormat ("{0}, {1}, {2}, {3}," +
                                         "{4}, {5}, {6}, " +
                                         "{7}, {8}, {9}, " +
@@ -91,20 +95,32 @@ namespace Mono.Tools.LocaleBuilder {
                                         ValuesString (CalendarData),
                                         DateTimeFormatEntry == null ? -1 : DateTimeFormatEntry.Row,
                                         NumberFormatEntry == null ? -1 : NumberFormatEntry.Row,
-					TextInfoEntry.ToString ());
-                        builder.Append ('}');
+                    TextInfoEntry.ToString());
+#if !JSIL
+                        builder.Append ("}");
+#else
+                        builder.Append("]");
+#endif
                 }
 
                 private string ValuesString (int [] values)
                 {
                         StringBuilder builder = new StringBuilder ();
+#if !JSIL
                         builder.Append ('{');
+#else
+                        builder.Append ('[');
+#endif
                         for (int i=0; i<values.Length; i++) {
                                 builder.Append (values [i].ToString ());
                                 if (i+1 < values.Length)
                                         builder.Append (", ");
                         }
+#if !JSIL
                         builder.Append ("}");
+#else
+                        builder.Append ("]");
+#endif
                         return builder.ToString ();
                 }
         }

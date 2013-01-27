@@ -2964,7 +2964,7 @@ namespace System.Collections
 		
 			// Handle inserting a range from a list to itself specially.
 
-			if (this == c.SyncRoot) 
+            if (c.SyncRoot == this) 
 			{
 				// Copy range before the insert point.
 

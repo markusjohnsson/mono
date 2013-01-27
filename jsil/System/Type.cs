@@ -59,5 +59,10 @@ namespace System
         {
             throw new NotImplementedException();
         }
+
+        public MethodInfo[] GetMethods()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

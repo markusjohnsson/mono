@@ -91,6 +91,7 @@ namespace JSIL.Proxies {
         public abstract string[] Split (AnyType[] dividers, int maximumCount, StringSplitOptions options);
 
         [JSChangeName("length")]
+        [JSAlwaysAccessAsProperty]
         [JSNeverReplace]
         abstract public int Length { get; }
 

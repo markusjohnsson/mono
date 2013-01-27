@@ -23,14 +23,39 @@ namespace Mono.Tools.LocaleBuilder {
 				throw new Exception ("need to increase idx size in culture-info.h");
 			StringBuilder ret = new StringBuilder ();
 			// the null entry
+#if !JSIL
 			ret.Append ("\"\\0\"\n");
+#else
+            ret.Append("\"\",\n");
+#endif
 			foreach (string s in string_order) {
 				ret.Append ("\t\"");
 				ret.Append (s);
+#if !JSIL
 				ret.Append ("\\0\"\n");
+#else
+                ret.Append("\",\n");
+#endif
 			}
+
 			return ret.ToString ();
 		}
+#if JSIL
+        public static string GetStringLengths() {
+            if (curpos > UInt16.MaxValue)
+                throw new Exception("need to increase idx size in culture-info.h");
+            StringBuilder ret = new StringBuilder();
+            // the null entry
+            ret.Append("\t0,\n");
+            foreach (string s in string_order)
+            {
+                ret.Append("\t");
+                ret.Append(s.Length);
+                ret.Append(",\n");
+            }
+            return ret.ToString();
+        }
+#endif
 		static Entry () {
 			hash = new Hashtable ();
 			string_order = new ArrayList ();
@@ -40,8 +65,12 @@ namespace Mono.Tools.LocaleBuilder {
 			if (o == null) {
 				int ret;
 				string_order.Add (s);
+#if !JSIL
 				ret = curpos;
-				hash [s] = curpos;
+#else
+                ret = string_order.Count;
+#endif
+				hash [s] = ret;
 				curpos += size + 1; // null terminator
 				return ret;
 			} else {
@@ -59,7 +88,11 @@ namespace Mono.Tools.LocaleBuilder {
                         bool in_hex = false;
                         foreach (byte b in ba) {
                                 if (b > 127 || (in_hex && is_hex (b))) {
+#if !JSIL
                                         ret.AppendFormat ("\\x{0:x}", b);
+#else
+                                        ret.AppendFormat("\\u{0:x4}", b);
+#endif
                                         in_hex = true;
                                 } else {
                                         if (b == '\\')

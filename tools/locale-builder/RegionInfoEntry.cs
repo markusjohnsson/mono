@@ -29,9 +29,14 @@ namespace Mono.Tools.LocaleBuilder
 		// NativeName and CurrencyNativeName are language dependent.
 
 		public void AppendTableRow (StringBuilder builder)
-		{
+        {
+#if !JSIL
 			builder.Append ("\t{ 0, "); // 0 is a slot for LCID (stored at managed code)
-			builder.Append (RegionId);
+#else
+			builder.Append ("\t[ 0, "); // 0 is a slot for LCID (stored at managed code)
+#endif
+
+            builder.Append (RegionId);
 			builder.Append (',');
 			// builder.Append (MeasurementSystem);
 			// builder.Append (',');
@@ -47,8 +52,13 @@ namespace Mono.Tools.LocaleBuilder
 			builder.Append (',');
 			builder.Append (EncodeStringIdx (ISOCurrencySymbol));
 			builder.Append (',');
-			builder.Append (EncodeStringIdx (CurrencyEnglishName));
-			builder.Append ('}');
+            builder.Append(EncodeStringIdx(CurrencyEnglishName));
+
+#if !JSIL
+            builder.Append ('}');
+#else
+            builder.Append (']');
+#endif
 		}
 
 		public override string ToString ()

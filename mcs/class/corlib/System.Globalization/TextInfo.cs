@@ -80,22 +80,31 @@ namespace System.Globalization {
 #if !JSIL
 		internal unsafe TextInfo (CultureInfo ci, int lcid, void* data, bool read_only)
 #else
-        internal TextInfo(CultureInfo ci, int lcid, bool read_only)
+        internal TextInfo(CultureInfo ci, int lcid, object[] data, bool read_only)
 #endif
 		{
 			this.m_isReadOnly = read_only;
 			this.m_win32LangID = lcid;
 			this.ci = ci;
-#if !JSIL
-			if (data != null)
-				this.data = *(Data*) data;
-			else 
-#else
+            if (data != null)
             {
-				this.data = new Data ();
-				this.data.list_sep = (byte) ',';
-			}
+
+#if !JSIL
+				this.data = *(Data*) data;
+#else
+                this.data = new Data();
+                this.data.ansi = (int)data[0];
+                this.data.ebcdic = (int)data[1];
+                this.data.mac = (int)data[2];
+                this.data.oem = (int)data[3];
+                this.data.list_sep = (byte)data[4];
 #endif
+            }
+            else
+            {
+                this.data = new Data();
+                this.data.list_sep = (byte)',';
+            }
 
 			CultureInfo tmp = ci;
 			while (tmp.Parent != null && tmp.Parent.LCID != 0x7F && tmp.Parent != tmp)

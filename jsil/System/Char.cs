@@ -1,36 +1,22 @@
 ﻿
+using JSIL.Meta;
 namespace System
 {
     public struct Char
     {
-        public static bool IsDigit(string source, int index)
-        {
-            var c = source[index];
-            return IsDigit(c);
-        }
+        [JSReplacement(@"(""0123456789"".indexOf($source[$index]) !== -1)")]
+        public extern static bool IsDigit(string source, int index);
 
-        public static bool IsWhiteSpace(string source, int index)
-        {
-            return IsWhiteSpace(source[index]);
-        }
+        [JSReplacement(@"("" \n\r\t"".indexOf($source[$index]) !== -1)")]
+        public extern static bool IsWhiteSpace(string source, int index);
 
-        public static bool IsDigit(char c)
-        {
-            return "0123456789"
-                .Contains(c);
-        }
+        [JSReplacement(@"(""0123456789"".indexOf($c) !== -1)")]
+        public extern static bool IsDigit(char c);
 
-        public static bool IsLetter(char p)
-        {
-            return "abcdefghijklmnopqrstuvxyzABCDEFGHIJKLMNOPQRSTUVXYZ"
-                .Contains(p);
-        }
-
-        public static bool IsWhiteSpace(char p)
-        {
-            return " \n\r\t"
-                .Contains(p);
-        }
+        [JSReplacement(@"(""abcdefghijklmnopqrstuvxyzABCDEFGHIJKLMNOPQRSTUVXYZ"".indexOf($p) !== -1)")]
+        public extern static bool IsLetter(char p);
+        [JSReplacement(@"("" \n\r\t"".indexOf($p) !== -1)")]
+        public static extern bool IsWhiteSpace(char p);
 
         internal static char ToLowerInvariant(char p)
         {

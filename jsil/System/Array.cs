@@ -12,6 +12,7 @@ namespace System
     public abstract class Array
     {
         [JSChangeName("length")]
+        [JSAlwaysAccessAsProperty]
         [JSNeverReplace]
         abstract public int Length { get; }
 
@@ -56,23 +57,37 @@ namespace System
         [JSReplacement("Array.prototype.indexOf.call($array, $value, $startIndex)")]
         public extern static int IndexOf<T>(T[] array, T value, int startIndex);
 
-        [JSReplacement("Array.prototype.indexOf.call($array, $value, $startIndex)")]
+        [JSReplacement(@"
+                ((function Array_IndexOf(_items, item, index, count) {
+                    var result = Array.prototype.indexOf.call(_items, item, index);
+                    return result > count ? -1 : result;
+                })($_items, $item, $index, $count))")]
         public extern static int IndexOf<T>(T[] _items, T item, int index, int count);
 
-        public static void Clear(Array array, int index, int length)
-        {
-            var isPrimitive = array.GetType().GetElementType().IsPrimitive;
-            Verbatim.Expression(@"
-                var defaultValue = isPrimitive ? 0 : null;
+        [JSReplacement(@"
+                (function Array_Clear(array, index, length) {
+                    var defaultValue = null;
                 
-                for (var i = 0; i<length; i++)
-                    array[i+index] = defaultValue;
-            ");
-        }
+                    for (var i = 0; i<length; i++)
+                        array[i+index] = defaultValue;
+                })($array, $index, $length);
+            ")]
+        public extern static void Clear(Array array, int index, int length);
 
         [JSReplacement("$this.slice(0)")]
         public extern object Clone();
 
+        [JSReplacement(@"
+                ((function(sourceArray, sourceIndex, destinationArray, destinationIndex, length) {
+                    var values = [];
+
+                    for (var i=0; i<length; i++)
+                        values.push(sourceArray[i + sourceIndex]);
+
+                    for (var i=0; i<length; i++)
+                        destinationArray[i+destinationIndex] = values[i];
+                })($sourceArray, $sourceIndex, $destinationArray, $destinationIndex, $length))
+            ")]
         public static void Copy(
             Array sourceArray,
             int sourceIndex,
@@ -80,15 +95,7 @@ namespace System
             int destinationIndex,
             int length)
         {
-            Verbatim.Expression(@"
-                var values = [];
-
-                for (var i=0; i<lenght; i++)
-                    values.push(sourceArray[i + sourceIndex]);
-
-                for (var i=0; i<lenght; i++)
-                    destinationArray[i+destinationIndex] = values[i];
-            ");
+            throw new NotSupportedException();
         }
 
         public int Rank
@@ -134,13 +141,13 @@ namespace System
             throw new NotImplementedException();
         }
 
-        public static void Copy(Array source, Array dest, int length)
-        {
-            Verbatim.Expression(@"
-                for (var i = 0; i<length; i++)
-                    dest[i] = source[i];
-            ");
-        }
+        [JSReplacement(@"
+                ((function (source, dest, length) {
+                    for (var i = 0; i<length; i++)
+                        dest[i] = source[i];
+                })($source, $dest, $length))
+            ")]
+        public extern static void Copy(Array source, Array dest, int length);
 
         public static void Sort(Array array, int start, int count, IComparer comparer)
         {
@@ -209,6 +216,7 @@ namespace System
             throw new NotImplementedException();
         }
 
+        [JSReplacement("$this.length")]
         public int GetLength(int dimension)
         {
             throw new NotImplementedException();

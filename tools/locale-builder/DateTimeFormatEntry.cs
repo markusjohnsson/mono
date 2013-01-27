@@ -48,7 +48,11 @@ namespace Mono.Tools.LocaleBuilder {
 
                 public void AppendTableRow (StringBuilder builder)
                 {
+#if !JSIL
                         builder.Append ("\t{");
+#else
+                        builder.Append ("\t[");
+#endif
                         builder.Append (EncodeStringIdx (FullDateTimePattern) + ", ");
                         builder.Append (EncodeStringIdx (LongDatePattern) + ", ");
                         builder.Append (EncodeStringIdx (ShortDatePattern) + ", ");
@@ -86,13 +90,21 @@ namespace Mono.Tools.LocaleBuilder {
                         builder.Append (',');
                         AppendPatterns (builder, LongTimePatterns);
 
+#if !JSIL
                         builder.Append ('}');
+#else
+                        builder.Append (']');
+#endif
                 }
 
                 private void AppendPatterns (StringBuilder builder, ArrayList al)
                 {
                         string [] patterns = al.ToArray (typeof (string)) as string [];
+#if !JSIL
                         builder.Append ('{');
+#else
+                        builder.Append ('[');
+#endif
                         for (int i = 0; i < patterns.Length; i++) {
                                 string s = EncodeStringIdx (patterns [i]);
                                 builder.Append (s);
@@ -100,8 +112,12 @@ namespace Mono.Tools.LocaleBuilder {
                                         builder.Append (',');
                         }
                         if (patterns.Length == 0)
-                                builder.Append ('0');
-                        builder.Append ('}');
+                            builder.Append('0');
+#if !JSIL
+                        builder.Append ('{');
+#else
+                        builder.Append (']');
+#endif
                 }
 
                 public override string ToString ()
@@ -113,13 +129,21 @@ namespace Mono.Tools.LocaleBuilder {
 
                 private void AppendNames (StringBuilder builder, ArrayList names)
                 {
+#if !JSIL
                         builder.Append ('{');
+#else
+                        builder.Append('[');
+#endif
                         for (int i=0; i<names.Count; i++) {
                                 builder.Append (EncodeStringIdx (names [i].ToString ()));
                                 if (i+1 < names.Count)
                                         builder.Append (", ");
                         }
-                        builder.Append ("}");
+#if !JSIL
+                        builder.Append ('}');
+#else
+                        builder.Append (']');
+#endif
                 }
         }
 }
