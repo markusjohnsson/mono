@@ -71,11 +71,13 @@ namespace System
 			HResult = Result;
 		}
 
+#if !BRAILLE
 		protected ArgumentOutOfRangeException (SerializationInfo info, StreamingContext context)
 			: base (info, context)
 		{
 			actual_value = info.GetString ("ActualValue");
 		}
+#endif
 
 		public ArgumentOutOfRangeException (string message, Exception innerException)
 		: base (message, innerException)
@@ -99,11 +101,13 @@ namespace System
 			}
 		}
 
+#if !BRAILLE
 		// Methods
 		public override void GetObjectData (SerializationInfo info, StreamingContext context)
 		{
 			base.GetObjectData (info, context);
 			info.AddValue ("ActualValue", actual_value);
 		}
+#endif
 	}
 }

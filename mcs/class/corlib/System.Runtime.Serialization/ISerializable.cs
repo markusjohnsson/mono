@@ -35,6 +35,8 @@ namespace System.Runtime.Serialization {
         [System.Runtime.InteropServices.ComVisibleAttribute (true)]
 
 	public interface ISerializable {
+#if !BRAILLE
 		void GetObjectData (SerializationInfo info, StreamingContext context);
+#endif
 	}
 }

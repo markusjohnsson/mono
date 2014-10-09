@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D070B743-294B-4A75-B560-E619DBDA1E0B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>
+    </RootNamespace>
+    <AssemblyName>mono-corlib</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;BRAILLE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\..\mcs\class\corlib\System.Runtime.InteropServices\CharSet.cs">
+      <Link>System.Runtime.InteropServices\CharSet.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System.Runtime.InteropServices\LayoutKind.cs">
+      <Link>System.Runtime.InteropServices\LayoutKind.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System.Runtime.InteropServices\StructLayoutAttribute.cs">
+      <Link>System.Runtime.InteropServices\StructLayoutAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System.Runtime.Serialization\ISerializable.cs">
+      <Link>System.Serialization\ISerializable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System\ArgumentException.cs">
+      <Link>System\ArgumentException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System\ArgumentNullException.cs">
+      <Link>System\ArgumentNullException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System\ArgumentOutOfRangeException.cs">
+      <Link>System\ArgumentOutOfRangeException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System\CLSCompliantAttribute.cs">
+      <Link>System\CLSCompliantAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System\DateTimeKind.cs">
+      <Link>System\DateTimeKind.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System\IComparable.cs">
+      <Link>System\IComparable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System\IEquatable.cs">
+      <Link>System\IEquatable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System\IFormatProvider.cs">
+      <Link>System\IFormatProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System\IFormattable.cs">
+      <Link>System\IFormattable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System\SystemException.cs">
+      <Link>System\SystemException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System\TypeCode.cs">
+      <Link>System\TypeCode.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Braille\Braille.Corlib\Braille.Corlib.csproj">
+      <Project>{87dddbcc-5f8d-462d-b879-19f8fd13d18b}</Project>
+      <Name>Braille.Corlib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+    <Folder Include="System.Collections.Generic\" />
+    <Folder Include="System.Globalization\" />
+    <Folder Include="System.Reflection\" />
+    <Folder Include="System.Runtime.CompilerServices\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
