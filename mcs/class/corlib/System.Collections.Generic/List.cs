@@ -256,12 +256,15 @@ namespace System.Collections.Generic {
 		public List <T> FindAll (Predicate <T> match)
 		{
 			CheckMatch (match);
+#if !BRAILLE
 			if (this._size <= 0x10000) // <= 8 * 1024 * 8 (8k in stack)
 				return this.FindAllStackBits (match);
 			else 
+#endif
 				return this.FindAllList (match);
 		}
 		
+#if !BRAILLE
 		private List <T> FindAllStackBits (Predicate <T> match)
 		{
 			unsafe
@@ -307,6 +310,7 @@ namespace System.Collections.Generic {
 				return new List <T> (results, found);
 			}
 		}
+#endif
 		
 		private List <T> FindAllList (Predicate <T> match)
 		{
@@ -682,7 +686,7 @@ namespace System.Collections.Generic {
 				throw new ArgumentNullException ("array"); 
 			if (array.Rank > 1 || array.GetLowerBound (0) != 0)
 				throw new ArgumentException ("Array must be zero based and single dimentional", "array");
-			Array.Copy (_items, 0, array, arrayIndex, _size);
+			Array.Copy (_items, 0, (T[])array, arrayIndex, _size);
 		}
 		
 		IEnumerator IEnumerable.GetEnumerator ()

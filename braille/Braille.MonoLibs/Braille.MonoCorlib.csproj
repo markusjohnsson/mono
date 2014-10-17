@@ -33,6 +33,69 @@
     <NoStdLib>true</NoStdLib>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\..\mcs\class\corlib\System.Collections.Generic\CollectionDebuggerView.cs">
+      <Link>System.Collections.Generic\CollectionDebuggerView.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System.Collections.Generic\Comparer.cs">
+      <Link>System.Collections.Generic\Comparer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System.Collections.Generic\EqualityComparer.cs">
+      <Link>System.Collections.Generic\EqualityComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System.Collections.Generic\ICollection.cs">
+      <Link>System.Collections.Generic\ICollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System.Collections.Generic\IDictionary.cs">
+      <Link>System.Collections.Generic\IDictionary.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System.Collections.Generic\IEnumerable.cs">
+      <Link>System.Collections.Generic\IEnumerable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System.Collections.Generic\IEnumerator.cs">
+      <Link>System.Collections.Generic\IEnumerator.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System.Collections.Generic\IEqualityComparer.cs">
+      <Link>System.Collections.Generic\IEqualityComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System.Collections.Generic\IList.cs">
+      <Link>System.Collections.Generic\IList.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System.Collections.Generic\KeyNotFoundException.cs">
+      <Link>System.Collections.Generic\KeyNotFoundException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System.Collections.Generic\KeyValuePair.cs">
+      <Link>System.Collections.Generic\KeyValuePair.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System.Collections.Generic\List.cs">
+      <Link>System.Collections.Generic\List.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System.Collections.ObjectModel\Collection.cs">
+      <Link>System.Collections.ObjectModel\Collection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System.Collections.ObjectModel\ReadOnlyCollection.cs">
+      <Link>System.Collections.ObjectModel\ReadOnlyCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System.Collections\ICollection.cs">
+      <Link>System.Collections\ICollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System.Collections\IEqualityComparer.cs">
+      <Link>System.Collections\IEqualityComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System.Collections\IList.cs">
+      <Link>System.Collections\IList.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System.Diagnostics\DebuggerBrowsableAttribute.cs">
+      <Link>System.Diagnostics\DebuggerBrowsableAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System.Diagnostics\DebuggerBrowsableState.cs">
+      <Link>System.Diagnostics\DebuggerBrowsableState.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System.Diagnostics\DebuggerDisplayAttribute.cs">
+      <Link>System.Diagnostics\DebuggerDisplayAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System.Diagnostics\DebuggerTypeProxyAttribute.cs">
+      <Link>System.Diagnostics\DebuggerTypeProxyAttribute.cs</Link>
+    </Compile>
     <Compile Include="..\..\mcs\class\corlib\System.Runtime.InteropServices\CharSet.cs">
       <Link>System.Runtime.InteropServices\CharSet.cs</Link>
     </Compile>
@@ -44,6 +107,9 @@
     </Compile>
     <Compile Include="..\..\mcs\class\corlib\System.Runtime.Serialization\ISerializable.cs">
       <Link>System.Serialization\ISerializable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System\Action.cs">
+      <Link>System\Action.cs</Link>
     </Compile>
     <Compile Include="..\..\mcs\class\corlib\System\ArgumentException.cs">
       <Link>System\ArgumentException.cs</Link>
@@ -57,8 +123,14 @@
     <Compile Include="..\..\mcs\class\corlib\System\CLSCompliantAttribute.cs">
       <Link>System\CLSCompliantAttribute.cs</Link>
     </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System\Converter.cs">
+      <Link>System\Converter.cs</Link>
+    </Compile>
     <Compile Include="..\..\mcs\class\corlib\System\DateTimeKind.cs">
       <Link>System\DateTimeKind.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System\EmptyArray.cs">
+      <Link>System\EmptyArray.cs</Link>
     </Compile>
     <Compile Include="..\..\mcs\class\corlib\System\IComparable.cs">
       <Link>System\IComparable.cs</Link>
@@ -71,6 +143,9 @@
     </Compile>
     <Compile Include="..\..\mcs\class\corlib\System\IFormattable.cs">
       <Link>System\IFormattable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System\NonSerializedAttribute.cs">
+      <Link>System\NonSerializedAttribute.cs</Link>
     </Compile>
     <Compile Include="..\..\mcs\class\corlib\System\SystemException.cs">
       <Link>System\SystemException.cs</Link>
@@ -87,7 +162,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
-    <Folder Include="System.Collections.Generic\" />
     <Folder Include="System.Globalization\" />
     <Folder Include="System.Reflection\" />
     <Folder Include="System.Runtime.CompilerServices\" />
