@@ -42,17 +42,8 @@
     <Compile Include="..\..\mcs\class\corlib\System.Collections.Generic\EqualityComparer.cs">
       <Link>System.Collections.Generic\EqualityComparer.cs</Link>
     </Compile>
-    <Compile Include="..\..\mcs\class\corlib\System.Collections.Generic\ICollection.cs">
-      <Link>System.Collections.Generic\ICollection.cs</Link>
-    </Compile>
     <Compile Include="..\..\mcs\class\corlib\System.Collections.Generic\IDictionary.cs">
       <Link>System.Collections.Generic\IDictionary.cs</Link>
-    </Compile>
-    <Compile Include="..\..\mcs\class\corlib\System.Collections.Generic\IEnumerable.cs">
-      <Link>System.Collections.Generic\IEnumerable.cs</Link>
-    </Compile>
-    <Compile Include="..\..\mcs\class\corlib\System.Collections.Generic\IEnumerator.cs">
-      <Link>System.Collections.Generic\IEnumerator.cs</Link>
     </Compile>
     <Compile Include="..\..\mcs\class\corlib\System.Collections.Generic\IEqualityComparer.cs">
       <Link>System.Collections.Generic\IEqualityComparer.cs</Link>
@@ -132,9 +123,6 @@
     <Compile Include="..\..\mcs\class\corlib\System\EmptyArray.cs">
       <Link>System\EmptyArray.cs</Link>
     </Compile>
-    <Compile Include="..\..\mcs\class\corlib\System\IComparable.cs">
-      <Link>System\IComparable.cs</Link>
-    </Compile>
     <Compile Include="..\..\mcs\class\corlib\System\IEquatable.cs">
       <Link>System\IEquatable.cs</Link>
     </Compile>
@@ -153,6 +141,7 @@
     <Compile Include="..\..\mcs\class\corlib\System\TypeCode.cs">
       <Link>System\TypeCode.cs</Link>
     </Compile>
+    <Compile Include="BrailleHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Braille\Braille.Corlib\Braille.Corlib.csproj">
@@ -165,6 +154,9 @@
     <Folder Include="System.Globalization\" />
     <Folder Include="System.Reflection\" />
     <Folder Include="System.Runtime.CompilerServices\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -34,9 +34,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+#if !BRAILLE
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+#endif
 
 using NUnit.Framework;
 
@@ -342,6 +344,8 @@ namespace MonoTests.System.Collections.Generic {
 			Assert.AreEqual (- (l.Count + 1), l.BinarySearch (int.MaxValue));
 		}
 
+#if !BRAILLE
+
 #if !NET_4_0 // FIXME: the blob contains the 2.0 mscorlib version
 
 		[Test]
@@ -379,6 +383,8 @@ namespace MonoTests.System.Collections.Generic {
 			Assert.AreEqual (0, list [1], "#3");
 			Assert.AreEqual (7, list [2], "#4");
 		}
+
+#endif
 
 		[Test]
 		public void SortTest ()
@@ -841,6 +847,7 @@ namespace MonoTests.System.Collections.Generic {
 			Assert.IsFalse (comparer.Called, "Called");
 		}
 
+#if !BRAILLE
 		[Test]
 		public void AddRange_Bug77019 ()
 		{
@@ -849,6 +856,7 @@ namespace MonoTests.System.Collections.Generic {
 			l.AddRange (d.Values);
 			Assert.AreEqual (0, l.Count, "Count");
 		}
+#endif
 
 		[Test]
 		public void VersionCheck_Add ()
@@ -1390,6 +1398,7 @@ namespace MonoTests.System.Collections.Generic {
 				Assert.IsTrue (e is ArgumentOutOfRangeException, "#4");
 			}
 
+#if !BRAILLE
 			try {
 				x.CopyTo (new int [10, 1], 0);
 				Assert.Fail ("#5");
@@ -1403,6 +1412,7 @@ namespace MonoTests.System.Collections.Generic {
 			} catch (Exception e) {
 				Assert.IsTrue (e is ArgumentException, "#8");
 			}
+#endif
 
 			l.Add (10); l.Add (20);
 			try {

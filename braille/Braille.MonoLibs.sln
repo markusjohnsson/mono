@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Core", "System.Core\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Braille.Corlib", "..\..\..\Braille\Braille.Corlib\Braille.Corlib.csproj", "{87DDDBCC-5F8D-462D-B879-19F8FD13D18B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Braille.MonoCorlib.Test", "Braille.MonoCorlib.Test\Braille.MonoCorlib.Test.csproj", "{FD233971-C528-43F4-8773-5442B58D53CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{87DDDBCC-5F8D-462D-B879-19F8FD13D18B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87DDDBCC-5F8D-462D-B879-19F8FD13D18B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87DDDBCC-5F8D-462D-B879-19F8FD13D18B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD233971-C528-43F4-8773-5442B58D53CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD233971-C528-43F4-8773-5442B58D53CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD233971-C528-43F4-8773-5442B58D53CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD233971-C528-43F4-8773-5442B58D53CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
