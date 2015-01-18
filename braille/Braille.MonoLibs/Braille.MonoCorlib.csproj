@@ -69,9 +69,6 @@
     <Compile Include="..\..\mcs\class\corlib\System.Collections\ICollection.cs">
       <Link>System.Collections\ICollection.cs</Link>
     </Compile>
-    <Compile Include="..\..\mcs\class\corlib\System.Collections\IEqualityComparer.cs">
-      <Link>System.Collections\IEqualityComparer.cs</Link>
-    </Compile>
     <Compile Include="..\..\mcs\class\corlib\System.Collections\IList.cs">
       <Link>System.Collections\IList.cs</Link>
     </Compile>
