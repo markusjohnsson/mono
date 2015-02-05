@@ -60,6 +60,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Readme.txt" />
     <Content Include="TestRunner.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
