@@ -29,11 +29,69 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+#if !BRAILLE
 using System.Linq;
+#endif
 
 using NUnit.Framework;
 
 namespace MonoTests.System.Collections.Generic {
+
+    public static class EnumerableWorkarounds
+    {
+        public static int Count<T>(this IEnumerable<T> source)
+        {
+            int i = 0;
+            foreach (var s in source)
+                i++;
+            return i;
+        }
+    }
+
+    public class StringComparer
+    {
+        public static IEqualityComparer<string> OrdinalIgnoreCase
+        {
+            get { return new OrdinalIgnoreCaseImpl(); }
+        }
+
+        public static IEqualityComparer<string> Ordinal
+        {
+            get { return new OrdinalIgnoreCaseImpl(); }
+        }
+
+        public class OrdinalIgnoreCaseImpl : IEqualityComparer<string>
+        {
+            public bool Equals(string x, string y)
+            {
+                if (x == null)
+                    return y == null;
+
+                return x.ToLower().Equals(y.ToLower());
+            }
+
+            public int GetHashCode(string obj)
+            {
+                return obj.ToLower().GetHashCode();
+            }
+        }
+
+        public class OrdinalImpl : IEqualityComparer<string>
+        {
+            public bool Equals(string x, string y)
+            {
+                if (x == null)
+                    return y == null;
+
+                return x.Equals(y);
+            }
+
+            public int GetHashCode(string obj)
+            {
+                return obj.GetHashCode();
+            }
+        }
+    }
 
 	[TestFixture]
 	public class HashSetTest {
@@ -71,6 +129,7 @@ namespace MonoTests.System.Collections.Generic {
 			AssertContainsOnly (new int [] {1, 4}, set);
 		}
 
+#if !BRAILLE
 		[Test]
 		public void TestMassiveAdd ()
 		{
@@ -94,6 +153,7 @@ namespace MonoTests.System.Collections.Generic {
 
 			AssertIsEmpty (set);
 		}
+#endif
 
 		[Test]
 		public void TestCopyTo ()
@@ -554,6 +614,7 @@ namespace MonoTests.System.Collections.Generic {
 			}
 		}
 
+#if !BRAILLE
 		[Test]
 		public void TrimWithoutChange ()
 		{
@@ -569,5 +630,6 @@ namespace MonoTests.System.Collections.Generic {
 				lookup.TrimExcess ();
 			}
 		}
+#endif
 	}
 }

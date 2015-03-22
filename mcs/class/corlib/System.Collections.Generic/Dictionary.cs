@@ -58,7 +58,10 @@ namespace System.Collections.Generic {
 	[Serializable]
 	[DebuggerDisplay ("Count={Count}")]
 	[DebuggerTypeProxy (typeof (CollectionDebuggerView<,>))]
-	public class Dictionary<TKey, TValue> : IDictionary<TKey, TValue>, IDictionary, ISerializable, IDeserializationCallback
+	public class Dictionary<TKey, TValue> : IDictionary<TKey, TValue>, IDictionary, ISerializable
+#if !BRAILLE
+        , IDeserializationCallback
+#endif
 #if NET_4_5
 		, IReadOnlyDictionary<TKey, TValue>
 #endif
@@ -100,7 +103,9 @@ namespace System.Collections.Generic {
 
 		//Leave those 2 fields here to improve heap layout.
 		IEqualityComparer<TKey> hcp;
+#if !BRAILLE
 		SerializationInfo serialization_info;
+#endif
 
 		// The number of slots in "linkSlots" and "keySlots"/"valueSlots" that
 		// are in use (i.e. filled with data) or have been used and marked as
@@ -255,10 +260,12 @@ namespace System.Collections.Generic {
 			Init (capacity, comparer);
 		}
 
+#if !BRAILLE
 		protected Dictionary (SerializationInfo info, StreamingContext context)
 		{
 			serialization_info = info;
 		}
+#endif
 
 		void Init (int capacity, IEqualityComparer<TKey> hcp)
 		{
@@ -507,6 +514,7 @@ namespace System.Collections.Generic {
 			return false;
 		}
 
+#if !BRAILLE
 		[SecurityPermission (SecurityAction.LinkDemand, Flags=SecurityPermissionFlag.SerializationFormatter)]
 		public virtual void GetObjectData (SerializationInfo info, StreamingContext context)
 		{
@@ -571,6 +579,7 @@ namespace System.Collections.Generic {
 			generation++;
 			serialization_info = null;
 		}
+#endif
 
 		public bool Remove (TKey key)
 		{

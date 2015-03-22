@@ -36,7 +36,9 @@ using System;
 using System.Collections;
 using System.Diagnostics;
 using System.Runtime.Serialization;
+#if !BRAILLE
 using System.Security.Permissions;
+#endif
 
 namespace System.Collections.Generic
 {
@@ -131,7 +133,8 @@ namespace System.Collections.Generic
 			foreach (KeyValuePair<TKey, TValue> entry in dictionary)
 				Add (entry.Key, entry.Value);
 		}
-
+        
+#if !BRAILLE
 		protected SortedDictionary (SerializationInfo info, StreamingContext context)
 		{
 			hlp = (NodeHelper)info.GetValue("Helper", typeof(NodeHelper));
@@ -141,6 +144,7 @@ namespace System.Collections.Generic
 			foreach (KeyValuePair<TKey, TValue> entry in data)
 				Add(entry.Key, entry.Value);
 		}
+#endif
 
 		#endregion
 
@@ -241,6 +245,7 @@ namespace System.Collections.Generic
 			return n != null;
 		}
 
+#if !BRAILLE
 		[SecurityPermission (SecurityAction.LinkDemand, Flags=SecurityPermissionFlag.SerializationFormatter)]
 		public virtual void GetObjectData (SerializationInfo info, StreamingContext context)
 		{
@@ -252,6 +257,7 @@ namespace System.Collections.Generic
 			info.AddValue ("KeyValuePairs", data);
 			info.AddValue ("Helper", hlp);
 		}
+#endif
 
 		#endregion
 

@@ -33,13 +33,77 @@ namespace NUnit.Framework
         public static void AreEqual(int expected, int actual, string message = null)
         {
             if (expected != actual)
-                Fail("Assertion failed: " + expected + " != " + actual, message);
+                Fail("Assertion AreEqual failed: " + expected + " != " + actual, message);
+        }
+
+        public static void AreEqual(long expected, long actual, string message = null)
+        {
+            if (expected != actual)
+                Fail("Assertion AreEqual failed: " + expected + " != " + actual, message);
+        }
+
+        public static void AreEqual(float expected, float actual, string message = null)
+        {
+            if (expected != actual)
+                Fail("Assertion AreEqual failed: " + expected + " != " + actual, message);
+        }
+
+        public static void AreEqual(double expected, double actual, string message = null)
+        {
+            if (expected != actual)
+                Fail("Assertion AreEqual failed: " + expected + " != " + actual, message);
+        }
+
+        public static void AreNotEqual(int expected, int actual, string message = null)
+        {
+            if (expected == actual)
+                Fail("Assertion AreNotEqual failed: " + expected + " == " + actual, message);
+        }
+
+        public static void AreNotEqual(long expected, long actual, string message = null)
+        {
+            if (expected == actual)
+                Fail("Assertion AreNotEqual failed: " + expected + " == " + actual, message);
         }
 
         public static void AreEqual(object expected, object actual, string message = null)
         {
-            if (!expected.Equals(actual))
+            if (expected == null && actual == null)
+                return;
+
+            if (expected is long && actual is int)
+            {
+                AreEqual((long)expected, (long)(int)actual, message);
+            }
+            else if (expected is int && actual is long)
+            {
+                AreEqual((long)(int)expected, (long)actual, message);
+            }
+            else if (expected is float && actual is int)
+            {
+                AreEqual((float)(int)expected, (float)actual, message);
+            }
+            else if (expected is int && actual is float)
+            {
+                AreEqual((float)(int)expected, (float)actual, message);
+            }
+            else if (expected is double && actual is int)
+            {
+                AreEqual((double)(int)expected, (double)actual, message);
+            }
+            else if (expected is int && actual is double)
+            {
+                AreEqual((double)(int)expected, (double)actual, message);
+            }
+            else if (expected == null || !expected.Equals(actual))
+            {
                 Fail("Assertion failed: " + expected + " != " + actual, message);
+            }
+        }
+
+        public static void Fail()
+        {
+            Fail("Assertion failed");
         }
 
         public static void Fail(string message, string message2 = null)
@@ -62,6 +126,18 @@ namespace NUnit.Framework
         public static void IsNotNull(object o, string message = null)
         {
             if (o == null)
+                Fail("Assertion failed", message);
+        }
+
+        public static void IsNull(object o, string message = null)
+        {
+            if (o != null)
+                Fail("Assertion failed", message);
+        }
+
+        public static void AreSame(object a, object b, string message = null)
+        {
+            if (!object.ReferenceEquals(a, b))
                 Fail("Assertion failed", message);
         }
     }

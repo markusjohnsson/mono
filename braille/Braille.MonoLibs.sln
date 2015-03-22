@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Braille.MonoCorlib", "Braille.MonoLibs\Braille.MonoCorlib.csproj", "{D070B743-294B-4A75-B560-E619DBDA1E0B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Core", "System.Core\System.Core.csproj", "{87755C03-FC1D-418C-9077-BCA809D0AAE4}"
@@ -8,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Braille.Corlib", "..\..\..\Braille\Braille.Corlib\Braille.Corlib.csproj", "{87DDDBCC-5F8D-462D-B879-19F8FD13D18B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Braille.MonoCorlib.Test", "Braille.MonoCorlib.Test\Braille.MonoCorlib.Test.csproj", "{FD233971-C528-43F4-8773-5442B58D53CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System", "System\System.csproj", "{60BF0B8F-857F-4D95-9C69-AC20E9CB3815}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +35,10 @@ Global
 		{FD233971-C528-43F4-8773-5442B58D53CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD233971-C528-43F4-8773-5442B58D53CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD233971-C528-43F4-8773-5442B58D53CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60BF0B8F-857F-4D95-9C69-AC20E9CB3815}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60BF0B8F-857F-4D95-9C69-AC20E9CB3815}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60BF0B8F-857F-4D95-9C69-AC20E9CB3815}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60BF0B8F-857F-4D95-9C69-AC20E9CB3815}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

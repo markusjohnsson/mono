@@ -33,7 +33,9 @@
 
 using System;
 using System.Collections;
+#if !BRAILLE
 using System.Globalization;
+#endif
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 

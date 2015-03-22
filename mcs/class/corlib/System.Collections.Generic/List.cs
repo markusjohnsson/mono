@@ -686,7 +686,7 @@ namespace System.Collections.Generic {
 				throw new ArgumentNullException ("array"); 
 			if (array.Rank > 1 || array.GetLowerBound (0) != 0)
 				throw new ArgumentException ("Array must be zero based and single dimentional", "array");
-			Array.Copy (_items, 0, (T[])array, arrayIndex, _size);
+			Array.Copy (_items, 0, array, arrayIndex, _size);
 		}
 		
 		IEnumerator IEnumerable.GetEnumerator ()

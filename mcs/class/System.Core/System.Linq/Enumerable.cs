@@ -222,6 +222,7 @@ namespace System.Linq
 			return total / count;
 		}
 
+#if !BRAILLE
 		public static decimal Average (this IEnumerable<decimal> source)
 		{
 			Check.Source (source);
@@ -236,6 +237,7 @@ namespace System.Linq
 				throw EmptySequence ();
 			return total / count;
 		}
+#endif
 
 		static TResult? AverageNullable<TElement, TAggregate, TResult> (this IEnumerable<TElement?> source,
 			Func<TAggregate, TElement, TAggregate> func, Func<TAggregate, long, TResult> result)
@@ -326,6 +328,7 @@ namespace System.Linq
 
 		}
 
+#if !BRAILLE
 		public static decimal? Average (this IEnumerable<decimal?> source)
 		{
 			Check.Source (source);
@@ -347,6 +350,7 @@ namespace System.Linq
 			return new decimal? (total / counter);
 
 		}
+#endif
 
 		public static float? Average (this IEnumerable<float?> source)
 		{
@@ -521,6 +525,7 @@ namespace System.Linq
 			return new float? (total / counter);
 		}
 
+#if !BRAILLE
 		public static decimal Average<TSource> (this IEnumerable<TSource> source, Func<TSource, decimal> selector)
 		{
 			Check.SourceAndSelector (source, selector);
@@ -557,6 +562,7 @@ namespace System.Linq
 
 			return new decimal? (total / counter);
 		}
+#endif
 
 		#endregion
 
@@ -1379,6 +1385,7 @@ namespace System.Linq
 			return max;
 		}
 
+#if !BRAILLE
 		public static decimal Max (this IEnumerable<decimal> source)
 		{
 			Check.Source (source);
@@ -1393,6 +1400,7 @@ namespace System.Linq
 				throw EmptySequence ();
 			return max;
 		}
+#endif
 
 		public static int? Max (this IEnumerable<int?> source)
 		{
@@ -1478,6 +1486,7 @@ namespace System.Linq
 			return max;
 		}
 
+#if !BRAILLE
 		public static decimal? Max (this IEnumerable<decimal?> source)
 		{
 			Check.Source (source);
@@ -1498,6 +1507,7 @@ namespace System.Linq
 
 			return max;
 		}
+#endif
 
 		// TODO: test nullable and non-nullable
 		public static TSource Max<TSource> (this IEnumerable<TSource> source)
@@ -1593,6 +1603,7 @@ namespace System.Linq
 			return max;
 		}
 
+#if !BRAILLE
 		public static decimal Max<TSource> (this IEnumerable<TSource> source, Func<TSource, decimal> selector)
 		{
 			Check.SourceAndSelector (source, selector);
@@ -1607,6 +1618,7 @@ namespace System.Linq
 				throw NoMatchingElement ();
 			return max;
 		}
+#endif
 
 		static U Iterate<T, U> (IEnumerable<T> source, U initValue, Func<T, U, U> selector)
 		{
@@ -1706,6 +1718,7 @@ namespace System.Linq
 			return max;
 		}
 
+#if !BRAILLE
 		public static decimal? Max<TSource> (this IEnumerable<TSource> source, Func<TSource, decimal?> selector)
 		{
 			Check.SourceAndSelector (source, selector);
@@ -1726,6 +1739,7 @@ namespace System.Linq
 				return null;
 			return max;
 		}
+#endif
 
 		public static TResult Max<TSource, TResult> (this IEnumerable<TSource> source, Func<TSource, TResult> selector)
 		{
@@ -1799,6 +1813,7 @@ namespace System.Linq
 			return min;
 		}
 
+#if !BRAILLE
 		public static decimal Min (this IEnumerable<decimal> source)
 		{
 			Check.Source (source);
@@ -1813,6 +1828,7 @@ namespace System.Linq
 				throw EmptySequence ();
 			return min;
 		}
+#endif
 
 		public static int? Min (this IEnumerable<int?> source)
 		{
@@ -1898,6 +1914,7 @@ namespace System.Linq
 			return min;
 		}
 
+#if !BRAILLE
 		public static decimal? Min (this IEnumerable<decimal?> source)
 		{
 			Check.Source (source);
@@ -1918,6 +1935,7 @@ namespace System.Linq
 
 			return min;
 		}
+#endif
 
 		public static TSource Min<TSource> (this IEnumerable<TSource> source)
 		{
@@ -2012,6 +2030,7 @@ namespace System.Linq
 			return min;
 		}
 
+#if !BRAILLE
 		public static decimal Min<TSource> (this IEnumerable<TSource> source, Func<TSource, decimal> selector)
 		{
 			Check.SourceAndSelector (source, selector);
@@ -2026,6 +2045,7 @@ namespace System.Linq
 				throw NoMatchingElement ();
 			return min;
 		}
+#endif
 
 		public static int? Min<TSource> (this IEnumerable<TSource> source, Func<TSource, int?> selector)
 		{
@@ -2111,6 +2131,7 @@ namespace System.Linq
 			return min;
 		}
 
+#if !BRAILLE
 		public static decimal? Min<TSource> (this IEnumerable<TSource> source, Func<TSource, decimal?> selector)
 		{
 			Check.SourceAndSelector (source, selector);
@@ -2131,6 +2152,7 @@ namespace System.Linq
 				return null;
 			return min;
 		}
+#endif
 
 		public static TResult Min<TSource, TResult> (this IEnumerable<TSource> source, Func<TSource, TResult> selector)
 		{
@@ -2711,6 +2733,7 @@ namespace System.Linq
 			return total;
 		}
 
+#if !BRAILLE
 		public static decimal Sum (this IEnumerable<decimal> source)
 		{
 			Check.Source (source);
@@ -2756,6 +2779,7 @@ namespace System.Linq
 			}
 			return total;
 		}
+#endif
 
 		#endregion
 

@@ -29,11 +29,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+#if !BRAILLE
 using System.Linq;
+#endif
 using System.Runtime.Serialization;
 using System.Runtime.InteropServices;
+
+#if !BRAILLE
 using System.Security;
 using System.Security.Permissions;
+#endif
+
 using System.Diagnostics;
 
 // HashSet is basically implemented as a reduction of Dictionary<K, V>
@@ -42,8 +48,14 @@ namespace System.Collections.Generic {
 
 	[Serializable]
 	[DebuggerDisplay ("Count={Count}")]
+#if !BRAILLE
 	[DebuggerTypeProxy (typeof (CollectionDebuggerView<,>))]
-	public class HashSet<T> : ICollection<T>, ISerializable, IDeserializationCallback
+#endif
+	public class HashSet<T> : ICollection<T>
+#if !BRAILLE
+        , ISerializable, IDeserializationCallback
+#endif
+
 #if NET_4_0
 							, ISet<T>
 #endif
@@ -83,7 +95,10 @@ namespace System.Collections.Generic {
 		int threshold;
 
 		IEqualityComparer<T> comparer;
+
+#if !BRAILLE
 		SerializationInfo si;
+#endif
 
 		// The number of changes made to this set. Used by enumerators
 		// to detect changes and invalidate themselves.
@@ -122,10 +137,12 @@ namespace System.Collections.Generic {
 				Add (item);
 		}
 
+#if !BRAILLE
 		protected HashSet (SerializationInfo info, StreamingContext context)
 		{
 			si = info;
 		}
+#endif
 
 		void Init (int capacity, IEqualityComparer<T> comparer)
 		{
@@ -539,6 +556,7 @@ namespace System.Collections.Generic {
 			return HashSetEqualityComparer<T>.Instance;
 		}
 
+#if !BRAILLE
 		[SecurityPermission (SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.SerializationFormatter)]
 		public virtual void GetObjectData (SerializationInfo info, StreamingContext context)
 		{
@@ -581,9 +599,10 @@ namespace System.Collections.Generic {
 				si = null;
 			}
 		}
+#endif
 
 
-		IEnumerator<T> IEnumerable<T>.GetEnumerator ()
+        IEnumerator<T> IEnumerable<T>.GetEnumerator ()
 		{
 			return new Enumerator (this);
 		}

@@ -29,8 +29,10 @@
 
 using System.Collections;
 using System.Collections.Generic;
+#if !BRAILLE
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+#endif
 
 using NUnit.Framework;
 using System;
@@ -92,8 +94,9 @@ namespace MonoTests.System.Collections.Generic
 
 			var o = new object ();
 			Assert.AreEqual (0, c.Compare (o, o), "#2");
-		}
+        }
 
+#if !BRAILLE
 
 #if !NET_4_0 // FIXME: the blob contains the 2.0 mscorlib version
 
@@ -144,5 +147,6 @@ namespace MonoTests.System.Collections.Generic
 			0x62, 0x37, 0x37, 0x61, 0x35, 0x63, 0x35, 0x36, 0x31, 0x39, 0x33,
 			0x34, 0x65, 0x30, 0x38, 0x39, 0x5d, 0x5d, 0x00, 0x00, 0x00, 0x00,
 			0x0b };
-	}
+#endif
+    }
 }

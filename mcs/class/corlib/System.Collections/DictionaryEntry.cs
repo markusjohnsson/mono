@@ -35,8 +35,9 @@ using System;
 using System.Runtime.InteropServices;
 
 namespace System.Collections {
-
+#if !BRAILLE
 	[ComVisible(true)]
+#endif
 	[Serializable]
 	public struct DictionaryEntry {
 		private object _key;

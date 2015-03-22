@@ -55,9 +55,11 @@ namespace System
 		{
 		}
 		
+#if !BRAILLE
 		internal IndexOutOfRangeException (SerializationInfo info, StreamingContext context)
 			: base (info, context)
 		{
 		}
+#endif
 	}
 }

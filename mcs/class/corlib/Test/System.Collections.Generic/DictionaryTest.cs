@@ -35,7 +35,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+#if !BRAILLE
 using System.Runtime.Serialization.Formatters.Binary;
+#endif
 using System.Text;
 using System.Threading;
 
@@ -211,6 +213,7 @@ namespace MonoTests.System.Collections.Generic {
 			
 		}
 
+#if !BRAILLE
 		[Test]
 		[Category ("NotWorking")]
 		public void Remove_ZeroOut ()
@@ -233,6 +236,7 @@ namespace MonoTests.System.Collections.Generic {
 			Assert.IsNull (wrKey.Target, "#1");
 			Assert.IsNull (wrValue.Target, "#2");
 		}
+#endif
 	
 		[Test, ExpectedException(typeof(ArgumentNullException))]
 		public void IndexerSetNullTest()
@@ -265,6 +269,7 @@ namespace MonoTests.System.Collections.Generic {
 			}
 		}
 
+#if !BRAILLE
 		[Test]
 		[Category ("NotWorking")]
 		public void Clear_ZeroOut ()
@@ -287,6 +292,7 @@ namespace MonoTests.System.Collections.Generic {
 			Assert.IsNull (wrKey.Target, "#1");
 			Assert.IsNull (wrValue.Target, "#2");
 		}
+#endif
 
 		[Test]
 		public void ContainsKeyTest ()
@@ -340,11 +346,11 @@ namespace MonoTests.System.Collections.Generic {
 		[Test]
 		public void ValueTypeTest ()
 		{
-			Dictionary <int, float> dict = new Dictionary <int, float> ();
-			dict.Add (10, 10.3f);
-			dict.Add (11, 10.4f);
-			dict.Add (12, 10.5f);
-			Assert.AreEqual (10.4f, dict [11], "#5");
+			Dictionary <int, double> dict = new Dictionary <int, double> ();
+			dict.Add (10, 10.3);
+			dict.Add (11, 10.4);
+			dict.Add (12, 10.5);
+			Assert.AreEqual (10.4, dict [11], "#5");
 		}
 	
 		private class MyTest
@@ -606,6 +612,7 @@ namespace MonoTests.System.Collections.Generic {
 			Assert.Fail ("Should not be reached");
 		}
 
+#if !BRAILLE
 		[Test]
 		public void SerializationTest()
 		{
@@ -633,6 +640,7 @@ namespace MonoTests.System.Collections.Generic {
 				Assert.AreEqual(i, d3[i]);
 			}
 		}
+#endif
 
 		[Test]
 		public void ZeroCapacity ()
@@ -786,6 +794,7 @@ namespace MonoTests.System.Collections.Generic {
 				en.MoveNext();
 		}
 
+#if !BRAILLE
 		[Test]
 		public void CopyToArray ()
 		{
@@ -815,8 +824,9 @@ namespace MonoTests.System.Collections.Generic {
 				comp = s;
 			Assert.IsTrue (Object.ReferenceEquals (s1, comp));
 		}
+#endif
 
-		[Test]
+        [Test]
 		public void ResetKeysEnumerator ()
 		{
 			Dictionary<string, string> test = new Dictionary<string, string> ();
@@ -1166,6 +1176,7 @@ namespace MonoTests.System.Collections.Generic {
 			c.CopyTo (new MyClass [1], 0);
 		}
 
+#if !BRAILLE
 		[Test] // bug 474009
 		public void DeserializeEmptyDictionary ()
 		{
@@ -1229,7 +1240,8 @@ BgcAAAABMQEAAAAL";
 			for (int i = 0; i < dict.Count; i++)
 				Assert.AreEqual (i, dict[i.ToString ()]);
 		}
-	}
+#endif
+    }
 }
 
 #endif // NET_2_0

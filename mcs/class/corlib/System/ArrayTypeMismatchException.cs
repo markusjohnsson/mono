@@ -61,9 +61,11 @@ namespace System
 			HResult = Result;
 		}
 
+#if !BRAILLE
 		protected ArrayTypeMismatchException (SerializationInfo info, StreamingContext context)
 			: base (info, context)
 		{
 		}
+#endif
 	}
 }

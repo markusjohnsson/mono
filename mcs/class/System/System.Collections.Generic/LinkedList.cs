@@ -33,7 +33,9 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
+#if !BRAILLE
 using System.Security.Permissions;
+#endif
 using System.Diagnostics;
 
 namespace System.Collections.Generic
@@ -41,7 +43,10 @@ namespace System.Collections.Generic
 	[Serializable, ComVisible (false)]
 	[DebuggerDisplay ("Count={Count}")]
 	[DebuggerTypeProxy (typeof (CollectionDebuggerView<>))]
-	public class LinkedList <T> : ICollection <T>, ICollection, ISerializable, IDeserializationCallback
+	public class LinkedList <T> : ICollection <T>, ICollection, ISerializable
+#if !BRAILLE
+        , IDeserializationCallback
+#endif
 	{
 		const string DataArrayKey = "DataArray";
 		const string VersionKey = "version";		
@@ -49,7 +54,9 @@ namespace System.Collections.Generic
 
 		// Internally a circular list - first.back == last
 		internal LinkedListNode <T> first;
+#if !BRAILLE
 		internal SerializationInfo si;
+#endif
 		
 		public LinkedList ()
 		{
@@ -61,10 +68,12 @@ namespace System.Collections.Generic
 				AddLast (item);
 		}
 		
+#if !BRAILLE
 		protected LinkedList (SerializationInfo info, StreamingContext context)
 		{
 			si = info;
 		}
+#endif
 		
 		void VerifyReferencedNode (LinkedListNode <T> node)
 		{
@@ -260,7 +269,8 @@ namespace System.Collections.Generic
 		{
 			return new Enumerator (this);
 		}
-		
+		 
+#if !BRAILLE
 		[SecurityPermission (SecurityAction.LinkDemand, Flags=SecurityPermissionFlag.SerializationFormatter)]
 		public virtual void GetObjectData (SerializationInfo info, StreamingContext context)
 		{
@@ -282,6 +292,7 @@ namespace System.Collections.Generic
 				si = null;
 			}
 		}
+#endif
 		
 		public bool Remove (T value)
 		{
@@ -371,10 +382,10 @@ namespace System.Collections.Generic
 
 		[Serializable, StructLayout (LayoutKind.Sequential)]
 		public struct Enumerator : IEnumerator <T>, IDisposable, IEnumerator
-#if !NET_2_1
+#if !NET_2_1 && !BRAILLE
 			, ISerializable, IDeserializationCallback
 #endif
-		{
+        {
 			const String VersionKey = "version";
 			const String IndexKey = "index";
 			const String ListKey = "list";
@@ -383,7 +394,7 @@ namespace System.Collections.Generic
 			LinkedListNode <T> current;
 			int index;
 			uint version;
-#if !NET_2_1
+#if !NET_2_1 && !BRAILLE
 			SerializationInfo si;
 
 			internal Enumerator (SerializationInfo info, StreamingContext context)
@@ -397,11 +408,11 @@ namespace System.Collections.Generic
 #endif
 			
 			internal Enumerator (LinkedList <T> parent)
-			{
-#if !NET_2_1
+            {
+#if !NET_2_1 && !BRAILLE
 				si = null;
 #endif
-				this.list = parent;
+                this.list = parent;
 				current = null;
 				index = -1;
 				version = parent.version;
@@ -465,7 +476,7 @@ namespace System.Collections.Generic
 				list = null;
 			}
 			
-#if !NET_2_1
+#if !NET_2_1 && !BRAILLE
 			[SecurityPermission (SecurityAction.LinkDemand, Flags=SecurityPermissionFlag.SerializationFormatter)]
 			void ISerializable.GetObjectData (SerializationInfo info, StreamingContext context)
 			{

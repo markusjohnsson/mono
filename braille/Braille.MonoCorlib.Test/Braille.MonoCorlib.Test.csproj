@@ -12,14 +12,13 @@
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NoStdLib>true</NoStdLib>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;BRAILLE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;BRAILLE NET_2_0</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
@@ -37,8 +36,53 @@
     <StartupObject>Braille.MonoCorlib.Test.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\..\mcs\class\corlib\Test\System.Collections.Generic\ComparerTest.cs">
+      <Link>System.Collections.Generic\ComparerTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\Test\System.Collections.Generic\DictionaryTest.cs">
+      <Link>System.Collections.Generic\DictionaryTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\Test\System.Collections.Generic\EqualityComparerTest.cs">
+      <Link>System.Collections.Generic\EqualityComparerTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\Test\System.Collections.Generic\IListTest.cs">
+      <Link>System.Collections.Generic\IListTest.cs</Link>
+    </Compile>
     <Compile Include="..\..\mcs\class\corlib\Test\System.Collections.Generic\ListTest.cs">
       <Link>System.Collections.Generic\ListTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\Test\System.Collections.ObjectModel\CollectionTest.cs">
+      <Link>System.Collections.ObjectModel\CollectionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\Test\System.Collections.ObjectModel\ReadOnlyCollectionTest.cs">
+      <Link>System.Collections.ObjectModel\ReadOnlyCollectionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\System.Core\Test\System.Collections.Generic\HashSetTest.cs">
+      <Link>System.Core\System.Collections.Generic\HashSetTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\System.Core\Test\System.Linq\EnumerableMoreTest.cs">
+      <Link>System.Core\System.Linq\EnumerableMoreTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\System.Core\Test\System.Linq\EnumerableTest.cs">
+      <Link>System.Core\System.Linq\EnumerableTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\System\Test\System.Collections.Generic\LinkedListTest.cs">
+      <Link>System\LinkedListTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\System\Test\System.Collections.Generic\QueueTest.cs">
+      <Link>System\QueueTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\System\Test\System.Collections.Generic\SortedDictionaryTest.cs">
+      <Link>System\SortedDictionaryTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\System\Test\System.Collections.Generic\SortedListTest.cs">
+      <Link>System\SortedListTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\System\Test\System.Collections.Generic\SortedSetTest.cs">
+      <Link>System\SortedSetTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\System\Test\System.Collections.Generic\StackTest.cs">
+      <Link>System\StackTest.cs</Link>
     </Compile>
     <Compile Include="Assert.cs" />
     <Compile Include="Program.cs" />
@@ -52,12 +96,18 @@
       <Project>{d070b743-294b-4a75-b560-e619dbda1e0b}</Project>
       <Name>Braille.MonoCorlib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\System.Core\System.Core.csproj">
+      <Project>{87755c03-fc1d-418c-9077-bca809d0aae4}</Project>
+      <Name>System.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\System\System.csproj">
+      <Project>{60bf0b8f-857f-4d95-9c69-ac20e9cb3815}</Project>
+      <Name>System</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="System" />
+    <Folder Include="System.Core\System\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Readme.txt" />

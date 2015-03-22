@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{60BF0B8F-857F-4D95-9C69-AC20E9CB3815}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>
+    </RootNamespace>
+    <AssemblyName>System</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;BRAILLE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;BRAILLE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Braille\Braille.Corlib\Braille.Corlib.csproj">
+      <Project>{87dddbcc-5f8d-462d-b879-19f8fd13d18b}</Project>
+      <Name>Braille.Corlib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Braille.MonoLibs\Braille.MonoCorlib.csproj">
+      <Project>{d070b743-294b-4a75-b560-e619dbda1e0b}</Project>
+      <Name>Braille.MonoCorlib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\mcs\class\System\System.Collections.Generic\ISet.cs">
+      <Link>System.Collections.Generic\ISet.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\System\System.Collections.Generic\LinkedList.cs">
+      <Link>System.Collections.Generic\LinkedList.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\System\System.Collections.Generic\LinkedListNode.cs">
+      <Link>System.Collections.Generic\LinkedListNode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\System\System.Collections.Generic\Queue.cs">
+      <Link>System.Collections.Generic\Queue.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\System\System.Collections.Generic\RBTree.cs">
+      <Link>System.Collections.Generic\RBTree.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\System\System.Collections.Generic\SortedDictionary.cs">
+      <Link>System.Collections.Generic\SortedDictionary.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\System\System.Collections.Generic\SortedList.cs">
+      <Link>System.Collections.Generic\SortedList.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\System\System.Collections.Generic\Stack.cs">
+      <Link>System.Collections.Generic\Stack.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

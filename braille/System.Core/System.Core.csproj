@@ -18,7 +18,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;BRAILLE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
@@ -44,6 +44,56 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\mcs\class\System.Core\System.Collections.Generic\HashSet.cs">
+      <Link>System.Collections.Generic\HashSet.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\System.Core\System.Linq\Check.cs">
+      <Link>System.Linq\Check.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\System.Core\System.Linq\Enumerable.cs">
+      <Link>System.Linq\Enumerable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\System.Core\System.Linq\Grouping.cs">
+      <Link>System.Linq\Grouping.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\System.Core\System.Linq\IGrouping.cs">
+      <Link>System.Linq\IGrouping.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\System.Core\System.Linq\ILookup_T.cs">
+      <Link>System.Linq\ILookup_T.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\System.Core\System.Linq\IOrderedEnumerable_T.cs">
+      <Link>System.Linq\IOrderedEnumerable_T.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\System.Core\System.Linq\Lookup.cs">
+      <Link>System.Linq\Lookup.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\System.Core\System.Linq\OrderedEnumerable.cs">
+      <Link>System.Linq\OrderedEnumerable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\System.Core\System.Linq\OrderedSequence.cs">
+      <Link>System.Linq\OrderedSequence.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\System.Core\System.Linq\QuickSort.cs">
+      <Link>System.Linq\QuickSort.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\System.Core\System.Linq\SortContext.cs">
+      <Link>System.Linq\SortContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\System.Core\System.Linq\SortDirection.cs">
+      <Link>System.Linq\SortDirection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\System.Core\System.Linq\SortSequenceContext.cs">
+      <Link>System.Linq\SortSequenceContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\System.Core\System\Actions.cs">
+      <Link>System\Actions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\System.Core\System\Funcs.cs">
+      <Link>System\Funcs.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

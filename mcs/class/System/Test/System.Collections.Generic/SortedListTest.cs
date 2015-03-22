@@ -36,10 +36,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+#if !BRAILLE
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+#endif
 using NUnit.Framework;
-#if !MOBILE
+#if !MOBILE && !BRAILLE
 using NUnit.Framework.SyntaxHelpers;
 #endif
 
@@ -489,6 +491,7 @@ namespace MonoTests.System.Collections.Generic
 			}
 		}
 
+#if !BRAILLE
 		[Test]
 		// Bug #4327
 		public void UncomparableList ()
@@ -516,6 +519,7 @@ namespace MonoTests.System.Collections.Generic
 				Assert.That (ex.InnerException, Is.TypeOf (typeof (DivideByZeroException)), "UC #8");
 			}
 		}
+#endif
 
 		[Test]
 		public void IDictionaryNullOnNonExistingKey ()

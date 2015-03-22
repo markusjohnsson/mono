@@ -30,8 +30,9 @@ using System;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
+#if !BRAILLE
 using System.Runtime.Serialization.Formatters.Binary;
-
+#endif
 using NUnit.Framework;
 
 namespace MonoTests.System.Collections.Generic
@@ -577,6 +578,7 @@ namespace MonoTests.System.Collections.Generic
 			Assert.IsTrue (Throws (delegate { var x = e.Current; }));
 		}
 
+#if !BRAILLE
 		// Serialize a dictionary out and deserialize it back in again
 		SortedDictionary<int, string> Roundtrip(SortedDictionary<int, string> dic)
 		{
@@ -625,7 +627,8 @@ namespace MonoTests.System.Collections.Generic
 			Assert.AreEqual ("A", e.Current.Value, "#6");
 			Assert.IsFalse (e.MoveNext (), "#7");
 		}
-	}
+#endif
+    }
 
 	[Serializable]
 	class ReverseComparer<T> : IComparer<T>

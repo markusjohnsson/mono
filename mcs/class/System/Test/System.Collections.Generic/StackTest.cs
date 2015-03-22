@@ -10,7 +10,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+#if !BRAILLE
 using System.Runtime.Serialization.Formatters.Binary;
+#endif
 
 using NUnit.Framework;
 
@@ -270,6 +272,7 @@ namespace MonoTests.System.Collections.Generic
 			Assert.AreEqual (0, s.Count, "#8");
 		}
 
+#if !BRAILLE
 		[Test]
 		[Category ("NotWorking")] // bug #80649
 		public void SerializeTest ()
@@ -304,6 +307,7 @@ namespace MonoTests.System.Collections.Generic
 			Assert.AreEqual (3, s.Pop (), "#2");
 			Assert.AreEqual (1, s.Pop (), "#3");
 		}
+#endif
 
 		void AssertPop <T> (Stack <T> s, T t)
 		{

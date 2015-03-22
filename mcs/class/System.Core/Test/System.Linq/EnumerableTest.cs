@@ -31,7 +31,9 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+#if !BRAILLE
 using System.Linq.Expressions;
+#endif
 
 using NUnit.Framework;
 
@@ -39,7 +41,6 @@ namespace MonoTests.System.Linq {
 
 	[TestFixture]
 	public class EnumerableTest {
-
 		[Test]
 		public void TestSimpleExcept ()
 		{
@@ -259,6 +260,7 @@ namespace MonoTests.System.Linq {
 			Assert.AreEqual (5, data.Max ());
 		}
 
+#if !BRAILLE
 		[Test]
 		public void TestMaxNullableInt32 ()
 		{
@@ -270,8 +272,8 @@ namespace MonoTests.System.Linq {
 
 			Assert.AreEqual (-1, data.Max (x => -x));
 		}
-
-		[Test]
+#endif
+        [Test]
 		public void TestMin ()
 		{
 			int [] data = {3, 5, 2, 6, 1, 7};
@@ -279,7 +281,8 @@ namespace MonoTests.System.Linq {
 			Assert.AreEqual (1, data.Min ());
 		}
 
-		[Test]
+#if !BRAILLE
+        [Test]
 		public void TestMinNullableInt32 ()
 		{
 			int? [] data = { null, null, null };
@@ -290,6 +293,7 @@ namespace MonoTests.System.Linq {
 
 			Assert.AreEqual (-2, data.Min (x => -x));
 		}
+#endif
 
 		[Test]
 		public void TestMinStringEmpty ()
@@ -315,7 +319,8 @@ namespace MonoTests.System.Linq {
 			Assert.AreEqual (typeof (List<int>), list.GetType ());
 		}
 
-		[Test]
+
+        [Test]
 		public void TestToArray ()
 		{
 			ICollection<int> coll = new List<int> ();
@@ -367,8 +372,8 @@ namespace MonoTests.System.Linq {
 			var x = new long [] { Int64.MaxValue, Int64.MaxValue };
 			x.Average ();
 		}
-
-		[Test]
+                                    
+        [Test]
 		public void TestAverageOnLongNullable ()
 		{
 			List<long?> list = new List<long?> ();
@@ -377,7 +382,8 @@ namespace MonoTests.System.Linq {
 			Assert.AreEqual (2.5d, list.Average ());
 		}
 
-		[Test]
+                                    
+        [Test]
 		public void TestRange ()
 		{
 			AssertAreSame (new [] {1, 2, 3, 4}, Enumerable.Range (1, 4));
@@ -407,6 +413,7 @@ namespace MonoTests.System.Linq {
 			}
 		}
 
+#if !BRAILLE
 		[Test]
 		public void TestTakeTakesProperNumberOfItems ()
 		{
@@ -426,8 +433,9 @@ namespace MonoTests.System.Linq {
 			while ((b = (byte) stream.ReadByte ()) >= 0)
 				yield return b;
 		}
-
-		[Test]
+#endif
+                                    
+        [Test]
 		public void TestOrderBy ()
 		{
 				int [] array = { 14, 53, 3, 9, 11, 14, 5, 32, 2 };
@@ -493,14 +501,14 @@ namespace MonoTests.System.Linq {
 			};
 		}
 
-		[Test]
-		public void TestOrderByAgeAscendingTheByNameDescending ()
-		{
-			var q = from b in CreateBazCollection ()
-					orderby b.Age ascending, b.Name descending
-					select b;
+        [Test]
+        public void TestOrderByAgeAscendingTheByNameDescending()
+        {
+            var q = from b in CreateBazCollection()
+                    orderby b.Age ascending, b.Name descending
+                    select b;
 
-			var expected = new [] {
+            var expected = new[] {
 				new Baz ("jb", 7),
 				new Baz ("ana", 20),
 				new Baz ("ro", 25),
@@ -508,8 +516,44 @@ namespace MonoTests.System.Linq {
 				new Baz ("reg", 28),
 			};
 
-			AssertAreSame (expected, q);
-		}
+            AssertAreSame(expected, q);
+        }
+
+        [Test]
+        public void TestOrderByAgeAscending()
+        {
+            var q = from b in CreateBazCollection()
+                    orderby b.Age ascending
+                    select b;
+
+            var expected = new[] {
+				new Baz ("jb", 7),
+				new Baz ("ana", 20),
+				new Baz ("jb", 25),
+				new Baz ("ro", 25),
+				new Baz ("reg", 28),
+			};
+
+            AssertAreSame(expected, q);
+        }
+
+        [Test]
+        public void TestOrderByNameDescending()
+        {
+            var q = from b in CreateBazCollection()
+                    orderby b.Name descending
+                    select b;
+
+            var expected = new[] {
+				new Baz("ro", 25),
+                new Baz("reg", 28),
+                new Baz("jb", 7),
+                new Baz("jb", 25),
+                new Baz("ana", 20)
+			};
+
+            AssertAreSame(expected, q);
+        }
 
 		class Data {
 			public int ID { get; set; }
@@ -607,5 +651,6 @@ namespace MonoTests.System.Linq {
 			if (ea.MoveNext ())
 				Assert.Fail ("Unexpected element: " + ea.Current);
 		}
+
 	}
 }

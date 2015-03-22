@@ -114,7 +114,10 @@ namespace System.Collections.Generic
 		uint version;
 
 #if ONE_MEMBER_CACHE
+        
+#if !BRAILLE
 		[ThreadStatic]
+#endif
 		static List<Node> cached_path;
 
 		static List<Node> alloc_path ()

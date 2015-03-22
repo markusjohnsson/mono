@@ -64,12 +64,13 @@ namespace System
 			: base(message, innerException)
 		{
 		}
-
+#if !BRAILLE
 		protected ObjectDisposedException (SerializationInfo info, StreamingContext context)
 			: base (info, context)
 		{
 			obj_name = info.GetString ("ObjectName");
 		}
+#endif
 
 		// Properties
 		public override string Message {
@@ -79,11 +80,12 @@ namespace System
 		public string ObjectName {
 			get { return obj_name; }
 		}
-
+#if !BRAILLE
 		public override void GetObjectData (SerializationInfo info, StreamingContext context)
 		{
 			base.GetObjectData (info, context);
 			info.AddValue ("ObjectName", obj_name);
 		}
+#endif
 	}
 }

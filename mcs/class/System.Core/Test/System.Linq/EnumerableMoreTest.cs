@@ -709,7 +709,7 @@ namespace MonoTests.System.Linq {
 			// Sum<TSource> (Func<TSource, Nullable<Double>>)
 			AssertException<ArgumentNullException> (delegate () { ((IEnumerable<string>) null).Sum<string> ((Func<string, Nullable<Double>>) (x => (int?) 0d)); });
 			AssertException<ArgumentNullException> (delegate () { data.Sum<string> ((Func<string, Nullable<Double>>) null); });
-
+#if !BRAILLE
 			// Sum<TSource> (Func<TSource, Decimal>)
 			AssertException<ArgumentNullException> (delegate () { ((IEnumerable<string>) null).Sum<string> ((Func<string, Decimal>) (x => 0m)); });
 			AssertException<ArgumentNullException> (delegate () { data.Sum<string> ((Func<string, Decimal>) null); });
@@ -717,7 +717,7 @@ namespace MonoTests.System.Linq {
 			// Sum<TSource> (Func<TSource, Nullable<Decimal>>)
 			AssertException<ArgumentNullException> (delegate () { ((IEnumerable<string>) null).Sum<string> ((Func<string, Nullable<Decimal>>) (x => (int?) 0m)); });
 			AssertException<ArgumentNullException> (delegate () { data.Sum<string> ((Func<string, Nullable<Decimal>>) null); });
-
+#endif
 			// Sum (IEnumerable<int>)
 			AssertException<ArgumentNullException> (delegate () { ((IEnumerable<int>) null).Sum (); });
 
@@ -742,11 +742,13 @@ namespace MonoTests.System.Linq {
 			// Sum (IEnumerable<double?>)
 			AssertException<ArgumentNullException> (delegate () { ((IEnumerable<Nullable<Double>>) null).Sum (); });
 
+#if !BRAILLE
 			// Sum (IEnumerable<decimal>)
 			AssertException<ArgumentNullException> (delegate () { ((IEnumerable<Decimal>) null).Sum (); });
 
 			// Sum (IEnumerable<decimal?>)
 			AssertException<ArgumentNullException> (delegate () { ((IEnumerable<Nullable<Decimal>>) null).Sum (); });
+#endif
 		}
 
 		[Test]
@@ -788,6 +790,7 @@ namespace MonoTests.System.Linq {
 			Assert.AreEqual (15, ((IEnumerable<string>) data).Sum<string> ((Func<string, Nullable<Double>>) (x => (int?) int.Parse (x))));
 			Assert.AreEqual (0, Enumerable.Empty<string> ().Sum<string> ((Func<string, Nullable<Double>>) (x => (int?) int.Parse (x))));
 
+#if !BRAILLE
 			// Sum<TSource> (Func<TSource, Decimal>)
 			Assert.AreEqual (15, ((IEnumerable<string>) data).Sum<string> ((Func<string, Decimal>) (x => int.Parse (x))));
 			Assert.AreEqual (0, Enumerable.Empty<string> ().Sum<string> ((Func<string, Decimal>) (x => int.Parse (x))));
@@ -795,6 +798,7 @@ namespace MonoTests.System.Linq {
 			// Sum<TSource> (Func<TSource, Nullable<Decimal>>)
 			Assert.AreEqual (15, ((IEnumerable<string>) data).Sum<string> ((Func<string, Nullable<Decimal>>) (x => (int?) int.Parse (x))));
 			Assert.AreEqual (0, Enumerable.Empty<string> ().Sum<string> ((Func<string, Nullable<Decimal>>) (x => (int?) int.Parse (x))));
+#endif
 
 			// Sum<> ()
 			Assert.AreEqual (6, ((IEnumerable<int>) new int [] { 1, 2, 3 }).Sum ());
@@ -827,7 +831,7 @@ namespace MonoTests.System.Linq {
 			// Sum<> ()
 			Assert.AreEqual (6, ((IEnumerable<Nullable<Double>>) new double? [] { 1, 2, 3 }).Sum ());
 			Assert.AreEqual (0, Enumerable.Empty<double?> ().Sum ());
-
+#if !BRAILLE
 			// Sum<> ()
 			Assert.AreEqual (6, ((IEnumerable<Decimal>) new decimal [] { 1, 2, 3 }).Sum ());
 			Assert.AreEqual (0, Enumerable.Empty<decimal> ().Sum ());
@@ -835,6 +839,7 @@ namespace MonoTests.System.Linq {
 			// Sum<> ()
 			Assert.AreEqual (6, ((IEnumerable<Nullable<Decimal>>) new decimal? [] { 1, 2, 3 }).Sum ());
 			Assert.AreEqual (0, Enumerable.Empty<decimal?> ().Sum ());
+#endif
 		}
 
 		[Test]
@@ -877,7 +882,7 @@ namespace MonoTests.System.Linq {
 			// Min<TSource> (Func<TSource, Nullable<Double>>)
 			AssertException<ArgumentNullException> (delegate () { ((IEnumerable<string>) null).Min<string> ((Func<string, Nullable<Double>>) (x => (int?) 0d)); });
 			AssertException<ArgumentNullException> (delegate () { data.Min<string> ((Func<string, Nullable<Double>>) null); });
-
+#if !BRAILLE
 			// Min<TSource> (Func<TSource, Decimal>)
 			AssertException<ArgumentNullException> (delegate () { ((IEnumerable<string>) null).Min<string> ((Func<string, Decimal>) (x => 0m)); });
 			AssertException<ArgumentNullException> (delegate () { data.Min<string> ((Func<string, Decimal>) null); });
@@ -885,7 +890,7 @@ namespace MonoTests.System.Linq {
 			// Min<TSource> (Func<TSource, Nullable<Decimal>>)
 			AssertException<ArgumentNullException> (delegate () { ((IEnumerable<string>) null).Min<string> ((Func<string, Nullable<Decimal>>) (x => (int?) 0m)); });
 			AssertException<ArgumentNullException> (delegate () { data.Min<string> ((Func<string, Nullable<Decimal>>) null); });
-
+#endif
 			// Min<TSource,TSource> (Func<TSource, string>)
 			AssertException<ArgumentNullException> (delegate () { ((IEnumerable<string>) null).Min<string, string> ((Func<string, string>) (x => "test")); });
 			AssertException<ArgumentNullException> (delegate () { data.Min<string, string> ((Func<string, string>) null); });
@@ -914,11 +919,13 @@ namespace MonoTests.System.Linq {
 			// Min<> ()
 			AssertException<ArgumentNullException> (delegate () { ((IEnumerable<Nullable<Double>>) null).Min (); });
 
+#if !BRAILLE
 			// Min<> ()
 			AssertException<ArgumentNullException> (delegate () { ((IEnumerable<Decimal>) null).Min (); });
 
 			// Min<> ()
 			AssertException<ArgumentNullException> (delegate () { ((IEnumerable<Nullable<Decimal>>) null).Min (); });
+#endif
 		}
 
 		[Test]
@@ -955,11 +962,13 @@ namespace MonoTests.System.Linq {
 			// Min<TSource> (Func<TSource, Nullable<Double>>)
 			Assert.AreEqual (1, ((IEnumerable<string>) data).Min<string> ((Func<string, Nullable<Double>>) (x => (int?) int.Parse (x))));
 
+#if !BRAILLE
 			// Min<TSource> (Func<TSource, Decimal>)
 			Assert.AreEqual (1, ((IEnumerable<string>) data).Min<string> ((Func<string, Decimal>) (x => int.Parse (x))));
 
 			// Min<TSource> (Func<TSource, Nullable<Decimal>>)
 			Assert.AreEqual (1, ((IEnumerable<string>) data).Min<string> ((Func<string, Nullable<Decimal>>) (x => (int?) int.Parse (x))));
+#endif
 
 			// Min<TSource,TSource> (Func<TSource, TSource>)
 			Assert.AreEqual ("1", ((IEnumerable<string>) data).Min<string, string> ((Func<string, string>) (x => x)));
@@ -987,12 +996,13 @@ namespace MonoTests.System.Linq {
 
 			// Min<> ()
 			Assert.AreEqual (2, ((IEnumerable<Nullable<Double>>) new double? [] { 2, 3, 4 }).Min ());
-
+#if !BRAILLE
 			// Min<> ()
 			Assert.AreEqual (2, ((IEnumerable<Decimal>) new decimal [] { 2, 3, 4 }).Min ());
 
 			// Min<> ()
-			Assert.AreEqual (2, ((IEnumerable<Nullable<Decimal>>) new decimal? [] { 2, 3, 4 }).Min ());
+		 	Assert.AreEqual (2, ((IEnumerable<Nullable<Decimal>>) new decimal? [] { 2, 3, 4 }).Min ());
+#endif
 		}
 
 		[Test]
@@ -1036,6 +1046,7 @@ namespace MonoTests.System.Linq {
 			AssertException<ArgumentNullException> (delegate () { ((IEnumerable<string>) null).Max<string> ((Func<string, Nullable<Double>>) (x => (int?) 0d)); });
 			AssertException<ArgumentNullException> (delegate () { data.Max<string> ((Func<string, Nullable<Double>>) null); });
 
+#if !BRAILLE
 			// Max<TSource> (Func<TSource, Decimal>)
 			AssertException<ArgumentNullException> (delegate () { ((IEnumerable<string>) null).Max<string> ((Func<string, Decimal>) (x => 0m)); });
 			AssertException<ArgumentNullException> (delegate () { data.Max<string> ((Func<string, Decimal>) null); });
@@ -1043,6 +1054,7 @@ namespace MonoTests.System.Linq {
 			// Max<TSource> (Func<TSource, Nullable<Decimal>>)
 			AssertException<ArgumentNullException> (delegate () { ((IEnumerable<string>) null).Max<string> ((Func<string, Nullable<Decimal>>) (x => (int?) 0m)); });
 			AssertException<ArgumentNullException> (delegate () { data.Max<string> ((Func<string, Nullable<Decimal>>) null); });
+#endif
 
 			// Max<TSource,TSource> (Func<TSource, TSource>)
 			AssertException<ArgumentNullException> (delegate () { ((IEnumerable<string>) null).Max<string, string> ((Func<string, string>) (x => "test")); });
@@ -1072,11 +1084,13 @@ namespace MonoTests.System.Linq {
 			// Max<> ()
 			AssertException<ArgumentNullException> (delegate () { ((IEnumerable<Nullable<Single>>) null).Max (); });
 
+#if !BRAILLE
 			// Max<> ()
 			AssertException<ArgumentNullException> (delegate () { ((IEnumerable<Decimal>) null).Max (); });
 
 			// Max<> ()
 			AssertException<ArgumentNullException> (delegate () { ((IEnumerable<Nullable<Decimal>>) null).Max (); });
+#endif
 		}
 
 		[Test]
@@ -1112,12 +1126,13 @@ namespace MonoTests.System.Linq {
 			// Max<TSource> (Func<TSource, Nullable<Double>>)
 			Assert.AreEqual (5, ((IEnumerable<string>) data).Max<string> ((Func<string, Nullable<Double>>) (x => (int?) int.Parse (x))));
 
+#if !BRAILLE
 			// Max<TSource> (Func<TSource, Decimal>)
 			Assert.AreEqual (5, ((IEnumerable<string>) data).Max<string> ((Func<string, Decimal>) (x => int.Parse (x))));
 
 			// Max<TSource> (Func<TSource, Nullable<Decimal>>)
 			Assert.AreEqual (5, ((IEnumerable<string>) data).Max<string> ((Func<string, Nullable<Decimal>>) (x => (int?) int.Parse (x))));
-
+#endif
 			// Max<TSource,TSource> (Func<TSource, TSource>)
 			Assert.AreEqual ("5", ((IEnumerable<string>) data).Max<string, string> ((Func<string, string>) (x => x)));
 
@@ -1145,11 +1160,13 @@ namespace MonoTests.System.Linq {
 			// Max<> ()
 			Assert.AreEqual (4, ((IEnumerable<Nullable<Double>>) new double? [] { 2, 3, 4 }).Max ());
 
+#if !BRAILLE
 			// Max<> ()
 			Assert.AreEqual (4, ((IEnumerable<Decimal>) new decimal [] { 2, 3, 4 }).Max ());
 
 			// Max<> ()
 			Assert.AreEqual (4, ((IEnumerable<Nullable<Decimal>>) new decimal? [] { 2, 3, 4 }).Max ());
+#endif
 		}
 
 		[Test]
@@ -1190,6 +1207,7 @@ namespace MonoTests.System.Linq {
 			AssertException<ArgumentNullException> (delegate () { ((IEnumerable<string>) null).Average<string> ((Func<string, Nullable<Double>>) (x => (int?) 0d)); });
 			AssertException<ArgumentNullException> (delegate () { data.Average<string> ((Func<string, Nullable<Double>>) null); });
 
+#if !BRAILLE
 			// Average<TSource> (Func<TSource, Decimal>)
 			AssertException<ArgumentNullException> (delegate () { ((IEnumerable<string>) null).Average<string> ((Func<string, Decimal>) (x => 0m)); });
 			AssertException<ArgumentNullException> (delegate () { data.Average<string> ((Func<string, Decimal>) null); });
@@ -1197,7 +1215,7 @@ namespace MonoTests.System.Linq {
 			// Average<TSource> (Func<TSource, Nullable<Decimal>>)
 			AssertException<ArgumentNullException> (delegate () { ((IEnumerable<string>) null).Average<string> ((Func<string, Nullable<Decimal>>) (x => (int?) 0m)); });
 			AssertException<ArgumentNullException> (delegate () { data.Average<string> ((Func<string, Nullable<Decimal>>) null); });
-
+#endif
 			// Average<> ()
 			AssertException<ArgumentNullException> (delegate () { ((IEnumerable<int>) null).Average (); });
 
@@ -1221,12 +1239,13 @@ namespace MonoTests.System.Linq {
 
 			// Average<> ()
 			AssertException<ArgumentNullException> (delegate () { ((IEnumerable<Nullable<Double>>) null).Average (); });
-
+#if !BRAILLE
 			// Average<> ()
 			AssertException<ArgumentNullException> (delegate () { ((IEnumerable<Decimal>) null).Average (); });
 
 			// Average<> ()
 			AssertException<ArgumentNullException> (delegate () { ((IEnumerable<Nullable<Decimal>>) null).Average (); });
+#endif
 		}
 
 		[Test]
@@ -1263,13 +1282,14 @@ namespace MonoTests.System.Linq {
 			// Average<TSource> (Func<TSource, Nullable<Double>>)
 			Assert.AreEqual (3, ((IEnumerable<string>) data).Average<string> ((Func<string, double?>) (x => (int?) int.Parse (x))));
 
+#if !BRAILLE
 			// Average<TSource> (Func<TSource, Decimal>)
 			Assert.AreEqual (3, ((IEnumerable<string>) data).Average<string> ((Func<string, decimal>) (x => int.Parse (x))));
 			AssertException<InvalidOperationException> (delegate () { empty.Average ((Func<string, decimal>) (x => int.Parse (x))); });
 
 			// Average<TSource> (Func<TSource, Nullable<Decimal>>)
 			Assert.AreEqual (3, ((IEnumerable<string>) data).Average<string> ((Func<string, decimal?>) (x => (int?) int.Parse (x))));
-
+#endif
 
 			// Average<> ()
 			Assert.AreEqual (3, ((IEnumerable<int>) new int [] { 2, 3, 4 }).Average ());
@@ -1299,12 +1319,14 @@ namespace MonoTests.System.Linq {
 			// Average<> ()
 			Assert.AreEqual (3, ((IEnumerable<Nullable<Double>>) new double? [] { 2, 3, 4 }).Average ());
 
+#if !BRAILLE
 			// Average<> ()
 			Assert.AreEqual (3, ((IEnumerable<Decimal>) new decimal [] { 2, 3, 4 }).Average ());
 			AssertException<InvalidOperationException> (delegate () { new decimal [0].Average (); });
 
 			// Average<> ()
 			Assert.AreEqual (3, ((IEnumerable<Nullable<Decimal>>) new decimal? [] { 2, 3, 4 }).Average ());
+#endif
 		}
 
 		[Test]

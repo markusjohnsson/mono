@@ -10,7 +10,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+#if !BRAILLE
 using System.Runtime.Serialization.Formatters.Binary;
+#endif
 
 using NUnit.Framework;
 
@@ -303,6 +305,7 @@ namespace MonoTests.System.Collections.Generic {
 			Assert.AreEqual (0, queue.Count);
 		}
 
+#if !BRAILLE
 		[Test]
 		[Category ("NotWorking")] // bug #80649
 		public void SerializeTest ()
@@ -337,6 +340,7 @@ namespace MonoTests.System.Collections.Generic {
 			Assert.AreEqual (3, s.Dequeue (), "#2");
 			Assert.AreEqual (2, s.Dequeue (), "#3");
 		}
+#endif
 
 		void AssertDequeue <T> (Queue <T> s, T t)
 		{

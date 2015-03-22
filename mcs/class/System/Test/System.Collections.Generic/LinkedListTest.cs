@@ -3,8 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+#if !BRAILLE
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+#endif
 using NUnit.Framework;
 
 namespace MonoTests.System.Collections.Generic
@@ -26,7 +28,9 @@ namespace MonoTests.System.Collections.Generic
 				if (other == null)
 					return false;
 
-				return string.Equals (Value, other.Value, StringComparison.OrdinalIgnoreCase);
+                //return string.Equals (Value, other.Value, StringComparison.OrdinalIgnoreCase);
+                
+                return string.Equals (Value.ToLower(), other.Value.ToLower());
 			}
 		}
 
@@ -220,6 +224,7 @@ namespace MonoTests.System.Collections.Generic
 			Assert.AreEqual ("bar", strings.First.Value);
 		}
 
+#if !BRAILLE
 		[Test]
 		public void ListSerializationTest ()
 		{
@@ -270,6 +275,7 @@ namespace MonoTests.System.Collections.Generic
 			}
 			Assert.AreEqual(3, i);
 		}
+#endif
 
 		public void EnumeratorAfterEnd ()
 		{
