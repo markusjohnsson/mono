@@ -42,7 +42,9 @@ namespace System.IO
 {
 	[Serializable]
 	[ComVisible (true)]
+#if !BRAILLE
 	[MonoLimitation ("Serialization format not compatible with .NET")]
+#endif
 	public class MemoryStream : Stream
 	{
 		bool canWrite;

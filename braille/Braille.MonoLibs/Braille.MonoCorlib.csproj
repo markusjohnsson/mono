@@ -102,6 +102,18 @@
     <Compile Include="..\..\mcs\class\corlib\System.Diagnostics\DebuggerTypeProxyAttribute.cs">
       <Link>System.Diagnostics\DebuggerTypeProxyAttribute.cs</Link>
     </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System.IO\IOException.cs">
+      <Link>System.IO\IOException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System.IO\MemoryStream.cs">
+      <Link>System.IO\MemoryStream.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System.IO\SeekOrigin.cs">
+      <Link>System.IO\SeekOrigin.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System.IO\Stream.cs">
+      <Link>System.IO\Stream.cs</Link>
+    </Compile>
     <Compile Include="..\..\mcs\class\corlib\System.Runtime.InteropServices\CharSet.cs">
       <Link>System.Runtime.InteropServices\CharSet.cs</Link>
     </Compile>
@@ -112,7 +124,7 @@
       <Link>System.Runtime.InteropServices\StructLayoutAttribute.cs</Link>
     </Compile>
     <Compile Include="..\..\mcs\class\corlib\System.Runtime.Serialization\ISerializable.cs">
-      <Link>System.Serialization\ISerializable.cs</Link>
+      <Link>System.Runtime.Serialization\ISerializable.cs</Link>
     </Compile>
     <Compile Include="..\..\mcs\class\corlib\System\Action.cs">
       <Link>System\Action.cs</Link>
@@ -128,6 +140,9 @@
     </Compile>
     <Compile Include="..\..\mcs\class\corlib\System\ArrayTypeMismatchException.cs">
       <Link>System\ArrayTypeMismatchException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System\Buffer.cs">
+      <Link>System\Buffer.cs</Link>
     </Compile>
     <Compile Include="..\..\mcs\class\corlib\System\CLSCompliantAttribute.cs">
       <Link>System\CLSCompliantAttribute.cs</Link>
@@ -158,6 +173,9 @@
     </Compile>
     <Compile Include="..\..\mcs\class\corlib\System\TypeCode.cs">
       <Link>System\TypeCode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\System\UnauthorizedAccessException.cs">
+      <Link>System\UnauthorizedAccessException.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BrailleHelper.cs" />

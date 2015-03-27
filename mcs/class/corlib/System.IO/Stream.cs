@@ -32,7 +32,9 @@
 //
 
 using System.Threading;
+#if !BRAILLE
 using System.Runtime.Remoting.Messaging;
+#endif
 using System.Runtime.InteropServices;
 #if NET_4_5
 using System.Threading.Tasks;
@@ -42,7 +44,7 @@ namespace System.IO
 {
 	[Serializable]
 	[ComVisible (true)]
-#if NET_2_1
+#if NET_2_1 || BRAILLE
 	public abstract class Stream : IDisposable
 #else
 	public abstract class Stream : MarshalByRefObject, IDisposable
@@ -50,9 +52,14 @@ namespace System.IO
 	{
 		public static readonly Stream Null = new NullStream ();
 
-		[NonSerialized]
+#if BRAILLE
+        public delegate int reader(byte[] source, int a, int b);
+        reader async_read;
+#else
+        [NonSerialized]
 		Func<byte[], int, int, int> async_read;
-		[NonSerialized]
+#endif
+        [NonSerialized]
 		Action<byte[], int, int> async_write;
 		[NonSerialized]
 		AutoResetEvent async_event;
@@ -139,11 +146,13 @@ namespace System.IO
 			return new SynchronizedStream (stream);
 		}
 
+#if !BRAILLE
 		[Obsolete ("CreateWaitHandle is due for removal.  Use \"new ManualResetEvent(false)\" instead.")]
 		protected virtual WaitHandle CreateWaitHandle()
 		{
 			return new ManualResetEvent (false);
 		}
+#endif
 		
 		public abstract void Flush ();
 

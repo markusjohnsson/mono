@@ -139,6 +139,7 @@ namespace MonoTests.System {
 			Buffer.BlockCopy (src, 0, dest, 0, Int32.MaxValue);
 		}
 
+#if !BRAILLE
 		[Test]
 		public void ByteLength ()
 		{
@@ -187,6 +188,7 @@ namespace MonoTests.System {
 			numBytes = Buffer.ByteLength (floatArray6);
 			Assert.AreEqual (0, numBytes, "TestByteLength: wrong byteLength for floatArray6");
 		}
+#endif
 		
 		[Test]
 		public void GetByte () 
@@ -241,7 +243,9 @@ namespace MonoTests.System {
 		{
 			bool errorThrown = false;
 			BufferTest [] someArray = new BufferTest [3];
-		
+
+            byteArray = new byte[10];
+
 			try {
 				Buffer.SetByte (null, 5, 12);
 			} catch (ArgumentNullException) {

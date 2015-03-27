@@ -62,9 +62,11 @@ namespace System
 			HResult = Result;
 		}
 
+#if !BRAILLE
 		protected UnauthorizedAccessException (SerializationInfo info, StreamingContext context)
 			: base (info, context)
 		{
 		}
+#endif
 	}
 }

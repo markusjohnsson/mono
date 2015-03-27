@@ -6,12 +6,12 @@ namespace System.Text
     class Dummy { }
 }
 
-namespace System.IO
+namespace System.Globalization
 {
     class Dummy { }
 }
 
-namespace System.Threading
+namespace System.Runtime.Serialization.Formatters.Binary
 {
     class Dummy { }
 }

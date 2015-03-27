@@ -54,10 +54,12 @@ namespace System.IO {
 		{
 		}
 
+#if !BRAILLE
 		protected IOException (SerializationInfo info, StreamingContext context)
 			: base (info, context)
 		{
 		}
+#endif
 
 		public IOException (string message, int hresult)
 			: base (message)

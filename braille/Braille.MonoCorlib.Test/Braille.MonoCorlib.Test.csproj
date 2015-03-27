@@ -57,6 +57,15 @@
     <Compile Include="..\..\mcs\class\corlib\Test\System.Collections.ObjectModel\ReadOnlyCollectionTest.cs">
       <Link>System.Collections.ObjectModel\ReadOnlyCollectionTest.cs</Link>
     </Compile>
+    <Compile Include="..\..\mcs\class\corlib\Test\System.IO\MemoryStreamTest.cs">
+      <Link>System.IO\MemoryStreamTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\Test\System.IO\StreamTest.cs">
+      <Link>System.IO\StreamTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\mcs\class\corlib\Test\System\BufferTest.cs">
+      <Link>System\BufferTest.cs</Link>
+    </Compile>
     <Compile Include="..\..\mcs\class\System.Core\Test\System.Collections.Generic\HashSetTest.cs">
       <Link>System.Core\System.Collections.Generic\HashSetTest.cs</Link>
     </Compile>

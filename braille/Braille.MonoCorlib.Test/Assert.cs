@@ -65,6 +65,14 @@ namespace NUnit.Framework
             if (expected == actual)
                 Fail("Assertion AreNotEqual failed: " + expected + " == " + actual, message);
         }
+        
+        public static void AreEqual<T>(T[] expected, T[] actual, string message = null)
+        {
+            AreEqual(expected.Length, actual.Length, message);
+
+            for (var i = 0; i < expected.Length; i++)
+                AreEqual(expected[i], actual[i], message);
+        }
 
         public static void AreEqual(object expected, object actual, string message = null)
         {

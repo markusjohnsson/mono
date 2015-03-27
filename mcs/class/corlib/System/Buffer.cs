@@ -31,6 +31,7 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
+using Braille.Runtime.TranslatorServices;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -50,11 +51,18 @@ namespace System {
 			if (length < 0)
 				throw new ArgumentException (Locale.GetText ("Object must be an array of primitives."));
 
+#if BRAILLE
+            BrailleCheckType(array);
+#endif
+
 			return length;
 		}
 
 		public static byte GetByte (Array array, int index)
-		{
+        {
+#if BRAILLE
+            BrailleCheckType(array);
+#endif
 			if (index < 0 || index >= ByteLength (array))
 				throw new ArgumentOutOfRangeException ("index", Locale.GetText(
 					"Value must be non-negative and less than the size of the collection."));
@@ -64,6 +72,9 @@ namespace System {
 
 		public static void SetByte (Array array, int index, byte value)
 		{
+#if BRAILLE
+            BrailleCheckType(array);
+#endif
 			if (index < 0 || index >= ByteLength (array))
 				throw new ArgumentOutOfRangeException ("index", Locale.GetText(
 					"Value must be non-negative and less than the size of the collection."));
@@ -79,6 +90,11 @@ namespace System {
 			if (dst == null)
 				throw new ArgumentNullException ("dst");
 
+#if BRAILLE
+            BrailleCheckType(src);
+            BrailleCheckType(dst);
+#endif
+
 			if (srcOffset < 0)
 				throw new ArgumentOutOfRangeException ("srcOffset", Locale.GetText(
 					"Non-negative number required."));
@@ -91,6 +107,7 @@ namespace System {
 				throw new ArgumentOutOfRangeException ("count", Locale.GetText (
 					"Non-negative number required."));
 
+
 			// We do the checks in unmanaged code for performance reasons
 			bool res = BlockCopyInternal (src, srcOffset, dst, dstOffset, count);
 			if (!res) {
@@ -102,6 +119,51 @@ namespace System {
 			}
 		}
 
+#if BRAILLE
+        
+        private static void BrailleCheckType(Array array)
+        {
+            if (array == null)
+                throw new ArgumentNullException();
+
+            if (array is byte[]) return;
+            if (array is int[]) return;
+            if (array is uint[]) return;
+            if (array is sbyte[]) return;
+            if (array is char[]) return;
+            if (array is short[]) return;
+            if (array is ushort[]) return;
+            
+            throw new ArgumentException();
+        }
+
+        [JsImport(
+            @"function(array) { 
+                return array.jsarr.buffer.byteLength; 
+            }")]
+        private extern static int ByteLengthInternal(Array array);
+
+        [JsImport("function(array, index){ return (new Uint8Array(array.jsarr.buffer))[index]; }")]
+        private extern static byte GetByteInternal(Array array, int index);
+
+        [JsImport("function(array, index, value){ return (new Uint8Array(array.jsarr.buffer))[index] = value; }")]
+        private extern static void SetByteInternal(Array array, int index, int value);
+
+        [JsImport(
+            @"function(src, src_offset, dest, dest_offset, count) {
+                var srcArr = src instanceof Uint8Array ? src : new Uint8Array(src.jsarr.buffer);
+                var destArr = dest instanceof Uint8Array ? dest : new Uint8Array(dest.jsarr.buffer);
+
+                if (count > srcArr.length - src_offset || count > destArr.length - dest_offset)
+                    throw new (asm1['System.ArgumentException']())();
+
+                for (var i=src_offset, j=dest_offset, c=0; c < count; c++, i++, j++) {
+                    destArr[j] = srcArr[i];
+                } 
+            }")]
+        internal extern static bool BlockCopyInternal(Array src, int src_offset, Array dest, int dest_offset, int count);
+
+#else
 		// private
 		[MethodImplAttribute (MethodImplOptions.InternalCall)]
 		private extern static int ByteLengthInternal (Array array);
@@ -114,5 +176,6 @@ namespace System {
 
 		[MethodImplAttribute (MethodImplOptions.InternalCall)]
 		internal extern static bool BlockCopyInternal (Array src, int src_offset, Array dest, int dest_offset, int count);
+#endif
 	}
 }

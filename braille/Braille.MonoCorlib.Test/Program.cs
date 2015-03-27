@@ -1,6 +1,8 @@
 ﻿
+using MonoTests.System;
 using MonoTests.System.Collections.Generic;
 using MonoTests.System.Collections.ObjectModel;
+using MonoTests.System.IO;
 using MonoTests.System.Linq;
 using NUnit.Framework;
 using System;
@@ -19,6 +21,8 @@ namespace Braille.MonoCorlib.Test
             RunTest(typeof(ComparerTest));
             RunTest(typeof(CollectionTest));
             RunTest(typeof(ReadOnlyCollectionTest));
+            RunTest(typeof(BufferTest));
+            RunTest(typeof(MemoryStreamTest));
 
             // System.dll
             RunTest(typeof(LinkedListTest));

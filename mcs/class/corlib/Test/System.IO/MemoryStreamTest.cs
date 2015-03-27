@@ -295,6 +295,7 @@ namespace MonoTests.System.IO
 			Assert.AreEqual (5, testStream.EndRead (res), "#2");
 		}
 
+#if !BRAILLE
 		[Test]
 		public void BeginRead_WithState ()
 		{
@@ -422,8 +423,9 @@ namespace MonoTests.System.IO
 				Assert.IsTrue (end.WaitOne (2000), "#6");
 			}
 		}
-		
-		[Test]
+#endif
+
+        [Test]
 		public void BeginWrite ()
 		{
 			var writeBytes = new byte [5] { 2, 3, 4, 10, 12 };
@@ -432,7 +434,8 @@ namespace MonoTests.System.IO
 			Assert.IsTrue (res.AsyncWaitHandle.WaitOne (1000), "#1");
 			testStream.EndWrite (res);
 		}
-
+        
+#if !BRAILLE
 		[Test]
 		public void BeginWrite_WithState ()
 		{
@@ -454,6 +457,7 @@ namespace MonoTests.System.IO
 			Assert.AreEqual ("state", async_state, "#4");
 			wh.Close ();
 		}
+#endif
 		
 		[Test]
 		public void EndRead_Twice ()
@@ -879,6 +883,7 @@ namespace MonoTests.System.IO
 			AssertEquals ("#06", 512, ms.Capacity);
 		}
 
+#if !BRAILLE
 		[Test]
 		public void WriteLengths () {
 			MemoryStream ms=new MemoryStream (256);
@@ -936,8 +941,9 @@ namespace MonoTests.System.IO
 			ms.WriteByte (0xFF);
 			Assert.AreEqual ("01-01-01-01-00-00-00-00-FF", BitConverter.ToString (ms.ToArray ()), "Result");
 		}
+#endif
 
-		[Test]
+        [Test]
 		public void PubliclyVisible ()
 		{
 			MemoryStream ms = new MemoryStream ();
@@ -998,6 +1004,7 @@ namespace MonoTests.System.IO
 			ms.ToArray ();
 		}
 
+#if !BRAILLE
 		[Test] // bug #80205
 		[Category ("NotWorking")]
 		public void SerializeTest ()
@@ -1017,6 +1024,7 @@ namespace MonoTests.System.IO
 
 			Assert.AreEqual (_serialized, bufferOut);
 		}
+#endif
 
 		[Test] // bug #676060
 		public void ZeroCapacity ()
@@ -1030,6 +1038,7 @@ namespace MonoTests.System.IO
 			byte[] bytes = ms.ToArray();
 		}
 
+#if !BRAILLE
 		[Test] // bug #80205
 		[Category ("NotWorking")]
 		public void DeserializeTest ()
@@ -1044,6 +1053,7 @@ namespace MonoTests.System.IO
 				Assert.AreEqual ("some test", sr.ReadToEnd ());
 			}
 		}
+#endif
 
 		private static byte [] _serialized = new byte [] {
 			0x00, 0x01, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff, 0x01, 0x00,
